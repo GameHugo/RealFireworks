@@ -8,54 +8,73 @@ import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Fireworks {
 
-    private static File file;
-    private static FileConfiguration fileConfig;
+    private static File folder;
     private static HashMap<String, FireworkInfo> fireworksList;
 
     public static void setup() {
-        file = FileCreator.createFile("fireworks.yml");
-        fileConfig = FileCreator.createConfig(file);
+        folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");
+        File file = FileCreator.createFile("/Fireworks", "example.yml");
+        FileConfiguration config = FileCreator.createConfig(file);
+        config.setDefaults(FileCreator.getDefault("example.yml"));
+        config.options().copyDefaults(true);
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void loadFireworks() {
         fireworksList = new HashMap<>();
-        for(String name : fileConfig.getKeys(false)) {
-            FireworkInfo fireworkInfo = getFireworkInfo(name);
-            if(!fireworksList.containsKey(name)) {
-                boolean exists = false;
-                for(FireworkInfo fireworkInfos : fireworksList.values()) {
-                    assert fireworkInfo != null;
-                    if(fireworkInfos.getName().equals(fireworkInfo.getName())) {
-                        RealFireworks.getInstance().getLogger().severe("&c"+name+" has a double displayname in config.");
-                        exists = true;
-                        break;
+        for (File file : Objects.requireNonNull(folder.listFiles())) {
+            FileConfiguration config = FileCreator.createConfig(file);
+            for(String name : config.getKeys(false)) {
+                FireworkInfo fireworkInfo = getFireworkInfo(config, name);
+                if(!fireworksList.containsKey(name)) {
+                    boolean exists = false;
+                    for(FireworkInfo fireworkInfos : fireworksList.values()) {
+                        assert fireworkInfo != null;
+                        if(fireworkInfos.getName().equals(fireworkInfo.getName())) {
+                            RealFireworks.getInstance().getLogger().severe(name+" has a double displayname in "+file.getName());
+                            exists = true;
+                            break;
+                        }
                     }
+                    if(!exists) {
+                        assert fireworkInfo != null;
+                        fireworksList.put(name, fireworkInfo);
+                        if(Config.getConfig().getBoolean("Debug")) {
+                            RealFireworks.getInstance().getLogger().info("Loaded firework "+fireworkInfo.getName());
+                        }
+                    }
+                } else {
+                    RealFireworks.getInstance().getLogger().severe(name+" is double in "+file.getName());
                 }
-                if(!exists) {
-                    fireworksList.put(name, fireworkInfo);
-                }
-            } else {
-                RealFireworks.getInstance().getLogger().severe("&c"+name+" is double in config.");
+            }
+            if(Config.getConfig().getBoolean("Debug")) {
+                RealFireworks.getInstance().getLogger().info("Loaded fireworks file "+file.getName());
             }
         }
+
     }
 
-    public static FireworkInfo getFireworkInfo(String path) {
+    public static FireworkInfo getFireworkInfo(FileConfiguration fileConfig, String path) {
         FireworkInfo fireworkInfo = new FireworkInfo();
         if(fileConfig.getString(path+".Name") == null) {
-            RealFireworks.getInstance().getLogger().severe("&cFailed to load a firework...\n&cPATH: "+path);
+            RealFireworks.getInstance().getLogger().severe("Failed to load a firework...\n&cPATH: "+path);
             return null;
         }
         fireworkInfo.setName(fileConfig.getString(path+".Name"));
         fireworkInfo.setLore(fileConfig.getStringList(path+".Lore"));
         if(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))) == null) {
-            RealFireworks.getInstance().getLogger().severe("&cFailed to load firework "+fileConfig.getString(path+".Name")+" invalid FireworkType\n&cPATH: "+path);
+            RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" invalid FireworkType\n&cPATH: "+path);
             return null;
         }
         fireworkInfo.setFireworkType(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))));
@@ -63,23 +82,23 @@ public class Fireworks {
             for(String id : Objects.requireNonNull(fileConfig.getConfigurationSection(path+".CakeEffects")).getKeys(false)) {
                 CakeEffect cakeEffect = new CakeEffect();
                 cakeEffect.setDelay(fileConfig.getInt(path+".CakeEffects."+id+".Delay"));
-                cakeEffect.setFireworkEffects(convertFireworkEffects(path+".CakeEffects."+id));
+                cakeEffect.setFireworkEffects(convertFireworkEffects(fileConfig, path+".CakeEffects."+id));
                 fireworkInfo.addTube(cakeEffect);
             }
         } else {
-            fireworkInfo.setFireworkEffects(convertFireworkEffects(path));
+            fireworkInfo.setFireworkEffects(convertFireworkEffects(fileConfig, path));
         }
         return fireworkInfo;
     }
 
-    public static FireworkEffects convertFireworkEffects(String path) {
+    public static FireworkEffects convertFireworkEffects(FileConfiguration fileConfig, String path) {
         FireworkEffects fireworkEffects = new FireworkEffects();
         if (fileConfig.get(path + ".FireworkEffects") == null) {
-            RealFireworks.getInstance().getLogger().severe("&cFailed to load firework " + fileConfig.getString(path + ".Name") + " no FireworkEffects\n&cPATH: " + path);
+            RealFireworks.getInstance().getLogger().severe("Failed to load firework " + fileConfig.getString(path + ".Name") + " no FireworkEffects\n&cPATH: " + path);
             return null;
         }
         if (fileConfig.get(path + ".FireworkEffects.Power") == null) {
-            RealFireworks.getInstance().getLogger().severe("&cFailed to load firework " + fileConfig.getString(path + ".Name") + " no power in FireworkEffects\n&cPATH: " + path);
+            RealFireworks.getInstance().getLogger().severe("Failed to load firework " + fileConfig.getString(path + ".Name") + " no power in FireworkEffects\n&cPATH: " + path);
             return null;
         }
         fireworkEffects.setPower(fileConfig.getInt(path + ".FireworkEffects.Power"));
@@ -107,10 +126,7 @@ public class Fireworks {
         return fireworksList;
     }
 
-    public static File getFile() {
-        return file;
-    }
-    public static FileConfiguration getFileConfig() {
-        return fileConfig;
+    public static File getFolder() {
+        return folder;
     }
 }

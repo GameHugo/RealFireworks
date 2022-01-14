@@ -1,0 +1,14 @@
+name: RealFireworks
+version: '${project.version}'
+main: nl.cheesydevs.realfireworks.RealFireworks
+api-version: 1.16
+authors: [ GameHugo_ ]
+description: Make your own fireworks but then better
+website: https://cheesydevs.nl
+commands:
+  realfireworks:
+    description: "The main command of the realfireworks plugin"
+    aliases: [rf]
+permissions:
+  realfireworks.use:
+    description: "The main command of the realfireworks plugin"

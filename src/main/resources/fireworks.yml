@@ -1,0 +1,40 @@
+example:
+  Name: "&cExample Firework"
+  Lore:
+    - "cat 1"
+  FireworkType: "ground"
+  FireworkEffects:
+    Power: 2
+    Red: 20
+    Green: 81
+    Blue: 179
+    Flicker: true
+    Trail: false
+    Fade: false
+
+example-cake:
+  Name: "&cExample Cake"
+  Lore:
+    - "cat 1"
+  FireworkType: "cake"
+  CakeEffects:
+    1:
+      Delay: 5
+      FireworkEffects:
+        Power: 2
+        Red: 20
+        Green: 81
+        Blue: 179
+        Flicker: true
+        Trail: false
+        Fade: false
+    2:
+      Delay: 20
+      FireworkEffects:
+        Power: 2
+        Red: 20
+        Green: 81
+        Blue: 179
+        Flicker: true
+        Trail: false
+        Fade: false

@@ -1,6 +1,6 @@
 name: RealFireworks
 version: '${project.version}'
-main: nl.cheesydevs.realfireworks.RealFireworks
+main: me.gamehugo.realfireworks.RealFireworks
 api-version: 1.16
 authors: [ GameHugo_ ]
 description: Make your own fireworks but then better

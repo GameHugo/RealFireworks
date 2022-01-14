@@ -1,5 +1,6 @@
 package me.gamehugo.realfireworks.Utils.FireworkTypes;
 
+@SuppressWarnings("unused")
 public enum FireworkType {
     Ground("ground"),
     Rocket("rocket"),

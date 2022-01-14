@@ -35,6 +35,8 @@ public class Cake {
                     f.setFireworkMeta(fm);
                 }, cakeEffect.getDelay());
             }
+        } else {
+            RealFireworks.getInstance().getLogger().severe("Failed to make firework "+fireworkInfo.getName()+" no tubes in CakeEffect");
         }
     }
 }

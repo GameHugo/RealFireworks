@@ -2,9 +2,9 @@ package me.gamehugo.realfireworks.Listeners;
 
 import me.gamehugo.realfireworks.Utils.Chat;
 import me.gamehugo.realfireworks.Events.FireworkLaunchEvent;
-import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.Utils.Files.Fireworks;
 import me.gamehugo.realfireworks.Utils.FireworkInfo;
+import me.gamehugo.realfireworks.Utils.FireworkTypes.Firework;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,16 +26,16 @@ public class OnFireworkIgnite implements Listener {
                     if(!fireworkLaunchEvent.isCancelled()) {
                         switch (fireworkInfo.getFireworkType()) {
                             case Ground:
-                                RealFireworks.ground.makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
+                                Firework.getGround().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
                                 break;
                             case Rocket:
-                                RealFireworks.rocket.makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
+                                Firework.getRocket().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
                                 break;
                             case Fountain:
-                                RealFireworks.fountain.makeFirework();
+                                Firework.getFountain().makeFirework();
                                 break;
                             case Cake:
-                                RealFireworks.cake.makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
+                                Firework.getCake().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
                                 break;
                         }
                         return;

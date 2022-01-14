@@ -1,5 +1,6 @@
 package me.gamehugo.realfireworks.Utils;
 
+@SuppressWarnings("unused")
 public class FireworkEffects {
     private int power;
     private int red;

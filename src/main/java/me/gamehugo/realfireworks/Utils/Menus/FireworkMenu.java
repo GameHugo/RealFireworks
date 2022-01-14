@@ -1,7 +1,7 @@
 package me.gamehugo.realfireworks.Utils.Menus;
 
+import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.Utils.Chat;
-import me.gamehugo.realfireworks.Utils.Console;
 import me.gamehugo.realfireworks.Utils.FireworkInfo;
 import me.gamehugo.realfireworks.Utils.Files.Fireworks;
 import org.bukkit.Bukkit;
@@ -33,8 +33,8 @@ public class FireworkMenu {
                     count++;
                 }
             } else {
-                player.sendMessage(Chat.color("&cCannot open menu... Check console"));
-                Console.sendMessage("&cToo many fireworks... max is 54 and yours is "+Fireworks.getFireworksList().size()+".");
+                player.sendMessage(Chat.color("&cCannot open menu... If you are a server administrator check console"));
+                RealFireworks.getInstance().getLogger().severe("&cToo many fireworks... max is 54 and yours is "+Fireworks.getFireworksList().size()+".");
             }
         }
         player.openInventory(inventory);

@@ -1,41 +1,40 @@
 package me.gamehugo.realfireworks.Utils.Files;
 
-import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.Utils.Chat;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 public class Messages {
 
-    private static FileConfiguration fileConfig;
+    private static File file;
+    private static FileConfiguration config;
 
-    public static void setupFile() {
-        File file = new File(RealFireworks.getInstance().getDataFolder(), "messages.yml");
-
-        if (!file.exists()) {
-            if(file.getParentFile().mkdirs()) {
-                RealFireworks.getInstance().saveResource("messages.yml", false);
-            }
-        }
-
-        fileConfig = new YamlConfiguration();
-
+    public static void setup() {
+        file = FileCreator.createFile("messages.yml");
+        config = FileCreator.createConfig(file);
+        config.setDefaults(FileCreator.getDefault("messages.yml"));
+        config.options().copyDefaults(true);
         try {
-            fileConfig.load(file);
-        } catch (IOException | InvalidConfigurationException e) {
+            config.save(file);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public static String get(String path) {
-        if(fileConfig.getString(path) != null) {
-            return Chat.color(fileConfig.getString(path));
+        if(getFileConfig().getString(path) != null) {
+            return Chat.color(getFileConfig().getString(path));
         }
         return Chat.color("&cMessage not found");
     }
 
+    public static File getFile() {
+        return file;
+    }
+    public static FileConfiguration getFileConfig() {
+        return config;
+    }
 }

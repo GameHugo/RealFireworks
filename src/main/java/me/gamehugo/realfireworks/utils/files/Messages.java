@@ -1,5 +1,6 @@
 package me.gamehugo.realfireworks.utils.files;
 
+import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.Chat;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -22,12 +23,14 @@ public class Messages {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().info("Loaded messages file");
     }
 
     public static String get(String path) {
         if(getFileConfig().getString(path) != null) {
             return Chat.color(getFileConfig().getString(path));
         }
+        if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().severe("Message not found ["+path+"]");
         return Chat.color("&cMessage not found");
     }
 

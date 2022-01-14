@@ -1,5 +1,8 @@
 package me.gamehugo.realfireworks.utils.fireworktypes;
 
+import me.gamehugo.realfireworks.RealFireworks;
+import me.gamehugo.realfireworks.utils.files.Config;
+
 public class Firework {
 
     private static Ground ground;
@@ -12,6 +15,7 @@ public class Firework {
         rocket = new Rocket();
         fountain = new Fountain();
         cake = new Cake();
+        if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().info("Loaded firework types");
     }
 
     public static Ground getGround() {

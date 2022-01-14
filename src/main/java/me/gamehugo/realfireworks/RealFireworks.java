@@ -18,12 +18,17 @@ public final class RealFireworks extends JavaPlugin {
     private static RealFireworks instance;
 
     @Override
+    public void onLoad() {
+        loadInstances();
+    }
+
+    @Override
     public void onEnable() {
         // Plugin startup logic
         getLogger().info(Chat.color("&6Loading RealFireworks!"));
-        if(!loadInstances())return;
+        long timeAtStart = System.currentTimeMillis();
+        if(Config.getConfig().getBoolean("Debug")) getLogger().info(" ");
 
-        Config.setup();
         Messages.setup();
         Fireworks.setup();
 
@@ -33,6 +38,8 @@ public final class RealFireworks extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new OnFireworkMenuClick(), this);
         getServer().getPluginManager().registerEvents(new OnFireworkIgnite(), this);
+        long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
+        getLogger().info(Chat.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
         getLogger().info(Chat.color("&eVersion: "+getDescription().getVersion()));
         getLogger().info(Chat.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
     }
@@ -42,14 +49,13 @@ public final class RealFireworks extends JavaPlugin {
         // Plugin shutdown logic
     }
 
-    private boolean loadInstances() {
+    private void loadInstances() {
         if(getDescription().getName().equals("RealFireworks")) {
             instance = this;
+            Config.setup();
             new Firework().setup();
-            return true;
         } else {
             Bukkit.getPluginManager().disablePlugin(this);
-            return false;
         }
     }
 

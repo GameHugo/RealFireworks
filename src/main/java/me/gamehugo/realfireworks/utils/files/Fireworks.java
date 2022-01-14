@@ -34,6 +34,10 @@ public class Fireworks {
     public static void loadFireworks() {
         fireworksList = new HashMap<>();
         for (File file : Objects.requireNonNull(folder.listFiles())) {
+            if(!file.getName().substring(file.getName().lastIndexOf('.')+1).equals("yml")) {
+                RealFireworks.getInstance().getLogger().severe("Wrong file type " + file.getName());
+                continue;
+            }
             FileConfiguration config = FileCreator.createConfig(file);
             for(String name : config.getKeys(false)) {
                 FireworkInfo fireworkInfo = getFireworkInfo(config, name);

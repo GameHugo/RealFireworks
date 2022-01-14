@@ -1,13 +1,13 @@
 package me.gamehugo.realfireworks;
 
-import me.gamehugo.realfireworks.Commands.RealFireworksCMD;
-import me.gamehugo.realfireworks.Listeners.OnFireworkIgnite;
-import me.gamehugo.realfireworks.Listeners.OnFireworkMenuClick;
-import me.gamehugo.realfireworks.Utils.Files.Config;
-import me.gamehugo.realfireworks.Utils.Files.Messages;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.Firework;
-import me.gamehugo.realfireworks.Utils.Menus.FireworkMenu;
-import me.gamehugo.realfireworks.Utils.Files.Fireworks;
+import me.gamehugo.realfireworks.commands.RealFireworksCMD;
+import me.gamehugo.realfireworks.listeners.OnFireworkIgnite;
+import me.gamehugo.realfireworks.listeners.OnFireworkMenuClick;
+import me.gamehugo.realfireworks.utils.files.Config;
+import me.gamehugo.realfireworks.utils.files.Messages;
+import me.gamehugo.realfireworks.utils.fireworktypes.Firework;
+import me.gamehugo.realfireworks.utils.menus.FireworkMenu;
+import me.gamehugo.realfireworks.utils.files.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,6 +1,6 @@
-package me.gamehugo.realfireworks.Utils.Files;
+package me.gamehugo.realfireworks.utils.files;
 
-import me.gamehugo.realfireworks.Utils.Chat;
+import me.gamehugo.realfireworks.utils.Chat;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;

@@ -1,6 +1,6 @@
-package me.gamehugo.realfireworks.Utils;
+package me.gamehugo.realfireworks.utils;
 
-import me.gamehugo.realfireworks.Utils.FireworkTypes.FireworkType;
+import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
 
 import java.util.ArrayList;
 import java.util.List;

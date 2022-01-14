@@ -1,4 +1,4 @@
-package me.gamehugo.realfireworks.Utils.Files;
+package me.gamehugo.realfireworks.utils.files;
 
 import me.gamehugo.realfireworks.RealFireworks;
 import org.bukkit.configuration.InvalidConfigurationException;

@@ -1,8 +1,8 @@
-package me.gamehugo.realfireworks.Listeners;
+package me.gamehugo.realfireworks.listeners;
 
-import me.gamehugo.realfireworks.Utils.Chat;
-import me.gamehugo.realfireworks.Utils.Files.Fireworks;
-import me.gamehugo.realfireworks.Utils.FireworkInfo;
+import me.gamehugo.realfireworks.utils.Chat;
+import me.gamehugo.realfireworks.utils.files.Fireworks;
+import me.gamehugo.realfireworks.utils.FireworkInfo;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

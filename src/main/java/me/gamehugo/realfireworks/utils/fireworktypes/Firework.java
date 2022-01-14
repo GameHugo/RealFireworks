@@ -1,4 +1,4 @@
-package me.gamehugo.realfireworks.Utils.FireworkTypes;
+package me.gamehugo.realfireworks.utils.fireworktypes;
 
 public class Firework {
 

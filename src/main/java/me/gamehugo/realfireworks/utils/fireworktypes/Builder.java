@@ -1,7 +1,7 @@
-package me.gamehugo.realfireworks.Utils.FireworkTypes;
+package me.gamehugo.realfireworks.utils.fireworktypes;
 
-import me.gamehugo.realfireworks.Utils.FireworkEffects;
-import me.gamehugo.realfireworks.Utils.FireworkInfo;
+import me.gamehugo.realfireworks.utils.FireworkEffects;
+import me.gamehugo.realfireworks.utils.FireworkInfo;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 

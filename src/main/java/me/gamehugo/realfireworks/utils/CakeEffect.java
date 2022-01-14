@@ -1,4 +1,4 @@
-package me.gamehugo.realfireworks.Utils;
+package me.gamehugo.realfireworks.utils;
 
 public class CakeEffect {
     private int delay;

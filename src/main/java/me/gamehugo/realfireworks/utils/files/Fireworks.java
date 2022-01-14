@@ -1,10 +1,10 @@
-package me.gamehugo.realfireworks.Utils.Files;
+package me.gamehugo.realfireworks.utils.files;
 
 import me.gamehugo.realfireworks.RealFireworks;
-import me.gamehugo.realfireworks.Utils.CakeEffect;
-import me.gamehugo.realfireworks.Utils.FireworkEffects;
-import me.gamehugo.realfireworks.Utils.FireworkInfo;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.FireworkType;
+import me.gamehugo.realfireworks.utils.CakeEffect;
+import me.gamehugo.realfireworks.utils.FireworkEffects;
+import me.gamehugo.realfireworks.utils.FireworkInfo;
+import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;

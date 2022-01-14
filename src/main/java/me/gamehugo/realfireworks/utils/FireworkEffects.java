@@ -1,4 +1,4 @@
-package me.gamehugo.realfireworks.Utils;
+package me.gamehugo.realfireworks.utils;
 
 @SuppressWarnings("unused")
 public class FireworkEffects {

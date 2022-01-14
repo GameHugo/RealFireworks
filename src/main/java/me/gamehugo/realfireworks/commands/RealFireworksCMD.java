@@ -1,7 +1,7 @@
-package me.gamehugo.realfireworks.Commands;
+package me.gamehugo.realfireworks.commands;
 
-import me.gamehugo.realfireworks.Utils.Chat;
-import me.gamehugo.realfireworks.Utils.Files.Messages;
+import me.gamehugo.realfireworks.utils.Chat;
+import me.gamehugo.realfireworks.utils.files.Messages;
 import me.gamehugo.realfireworks.RealFireworks;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

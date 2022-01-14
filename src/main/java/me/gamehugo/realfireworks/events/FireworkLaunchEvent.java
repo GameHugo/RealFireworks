@@ -1,6 +1,6 @@
-package me.gamehugo.realfireworks.Events;
+package me.gamehugo.realfireworks.events;
 
-import me.gamehugo.realfireworks.Utils.FireworkInfo;
+import me.gamehugo.realfireworks.utils.FireworkInfo;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

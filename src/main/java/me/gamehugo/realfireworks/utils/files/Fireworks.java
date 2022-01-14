@@ -126,6 +126,11 @@ public class Fireworks {
         return fireworkEffects;
     }
 
+
+    public static void reload() {
+        loadFireworks();
+    }
+
     public static HashMap<String, FireworkInfo> getFireworksList() {
         return fireworksList;
     }

@@ -2,7 +2,7 @@ package me.gamehugo.realfireworks.commands;
 
 import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.files.Messages;
-import me.gamehugo.realfireworks.RealFireworks;
+import me.gamehugo.realfireworks.utils.menus.FireworkMenu;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ public class RealFireworksCMD implements CommandExecutor {
         if(!(sender instanceof Player)) {sender.sendMessage(Chat.color("&cYou can only do this as player.")); return false;}
         if(!sender.hasPermission("realfireworks.use")) {sender.sendMessage(Messages.get("noPerms")); return false;}
         Player p = (Player) sender;
-        RealFireworks.fireworkMenu.open(p);
+        FireworkMenu.open(p);
         return false;
     }
 }

@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class FireworkMenu {
 
-    public void open(Player player) {
+    public static void open(Player player) {
         Inventory inventory = Bukkit.createInventory(null, size(), Chat.color("&6Firework Menu"));
 
         if(Fireworks.getFireworksList().size() > 0){
@@ -40,7 +40,7 @@ public class FireworkMenu {
         player.openInventory(inventory);
     }
 
-    private int size() {
+    private static int size() {
         if(Fireworks.getFireworksList().size() < 10) {
             return 9;
         } else if(Fireworks.getFireworksList().size() < 19) {

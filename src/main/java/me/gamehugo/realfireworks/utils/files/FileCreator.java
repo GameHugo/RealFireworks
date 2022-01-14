@@ -36,10 +36,14 @@ public class FileCreator {
             folder.mkdirs();
         }
         if(!file.exists()) {
-            try {
-                if(file.createNewFile()) return file;
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(RealFireworks.getInstance().getResource(path+"/"+filename) != null) {
+                RealFireworks.getInstance().saveResource(path+"/"+filename, false);
+            } else {
+                try {
+                    if (file.createNewFile()) return file;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return file;

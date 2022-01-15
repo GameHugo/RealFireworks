@@ -5,6 +5,7 @@ import me.gamehugo.realfireworks.utils.CakeEffect;
 import me.gamehugo.realfireworks.utils.FireworkEffects;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
+import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -109,14 +110,32 @@ public class Fireworks {
             id = fileConfig.getString(path + ".Name");
         }
         if (fileConfig.get(path + ".FireworkEffects") == null) {
-            RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no FireworkEffects\nPATH: " + path);
+            if(tubeId == null) {
+                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no FireworkEffects");
+            } else {
+                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' and tubeID '" + tubeId + "' no FireworkEffects");
+            }
             return null;
         }
         if (fileConfig.get(path + ".FireworkEffects.Power") == null) {
-            RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no power in FireworkEffects\nPATH: " + path);
+            if(tubeId == null) {
+                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no power in FireworkEffects");
+            } else {
+                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' and tubeID '" + tubeId + "' no power in FireworkEffects");
+            }
             return null;
         }
         fireworkEffects.setPower(fileConfig.getInt(path + ".FireworkEffects.Power"));
+        if(fileConfig.get(path + ".FireworkEffects.Type") == null) {
+            if(tubeId == null) {
+                RealFireworks.getInstance().getLogger().warning("You are missing the type with firework '" + id + "' so the type will be BALL");
+            } else {
+                RealFireworks.getInstance().getLogger().warning("You are missing the type with firework '" + id + "' and tubeID '" + tubeId + "' so the type will be BALL");
+            }
+            fireworkEffects.setType(FireworkEffect.Type.BALL);
+        } else {
+            fireworkEffects.setType(FireworkEffect.Type.valueOf(fileConfig.getString(path + ".FireworkEffects.Type")));
+        }
         if (fileConfig.get(path + ".FireworkEffects.Red") == null || fileConfig.get(path + ".FireworkEffects.Green") == null || fileConfig.get(path + ".FireworkEffects.Blue") == null) {
             if(tubeId == null) {
                 RealFireworks.getInstance().getLogger().warning("You are missing color(s) with firework '" + id + "' so the color will be black");

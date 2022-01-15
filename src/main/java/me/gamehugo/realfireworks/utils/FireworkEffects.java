@@ -1,8 +1,11 @@
 package me.gamehugo.realfireworks.utils;
 
+import org.bukkit.FireworkEffect;
+
 @SuppressWarnings("unused")
 public class FireworkEffects {
     private int power;
+    private FireworkEffect.Type type;
     private int red;
     private int green;
     private int blue;
@@ -15,6 +18,9 @@ public class FireworkEffects {
 
     public void setPower(int power) {
         this.power = power;
+    }
+    public void setType(FireworkEffect.Type type) {
+        this.type = type;
     }
     public void setColor(int red, int green, int blue) {
         this.red = red;
@@ -56,6 +62,9 @@ public class FireworkEffects {
 
     public int getPower() {
         return power;
+    }
+    public FireworkEffect.Type getType() {
+        return type;
     }
     public int getRed() {
         return red;

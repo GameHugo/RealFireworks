@@ -17,7 +17,7 @@ public class OnFireworkIgnite implements Listener {
 
     @EventHandler
     public void OnInteract(PlayerInteractEvent e) {
-        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && Objects.requireNonNull(e.getItem()).getType().equals(Material.FIREWORK_ROCKET)) {
+        if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getItem() != null && e.getItem().getType().equals(Material.FIREWORK_ROCKET)) {
             for(FireworkInfo fireworkInfo : Fireworks.getFireworksList().values()) {
                 if(Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals(Chat.color(fireworkInfo.getName()))) {
                     e.setCancelled(true);

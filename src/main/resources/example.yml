@@ -1,21 +1,21 @@
 example:
   Name: "&cExample Firework"
   Lore:
-    - "cat 1"
+    - "Right click to use"
   FireworkType: "ground"
   FireworkEffects:
     Power: 2
+    Type: BALL
     Red: 20
     Green: 81
     Blue: 179
     Flicker: true
     Trail: false
     Fade: false
-
 example-cake:
   Name: "&cExample Cake"
   Lore:
-    - "cat 1"
+    - "Right click to use"
   FireworkType: "cake"
   CakeEffects:
     1:

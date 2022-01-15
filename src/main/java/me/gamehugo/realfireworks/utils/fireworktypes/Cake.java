@@ -19,14 +19,7 @@ public class Cake {
         if(fireworkInfo.getTubes().size() > 0) {
             for (CakeEffect cakeEffect : fireworkInfo.getTubes()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(RealFireworks.getInstance(), () -> {
-                    FireworkEffect.Builder fb = FireworkEffect.builder();
-                    fb.withColor(Color.fromRGB(cakeEffect.getFireworkEffects().getRed(), cakeEffect.getFireworkEffects().getGreen(), cakeEffect.getFireworkEffects().getBlue()));
-                    if(cakeEffect.getFireworkEffects().getFade()) {
-                        fb.withFade(Color.fromRGB(cakeEffect.getFireworkEffects().getFadeRed(), cakeEffect.getFireworkEffects().getFadeGreen(), cakeEffect.getFireworkEffects().getFadeBlue()));
-                    }
-                    fb.flicker(cakeEffect.getFireworkEffects().getFlicker());
-                    fb.trail(cakeEffect.getFireworkEffects().getTrail());
-                    FireworkEffect fe = fb.build();
+                    FireworkEffect fe = Builder.build(cakeEffect.getFireworkEffects());
                     Firework f = (Firework) Objects.requireNonNull(loc.getWorld()).spawnEntity(loc.clone().add(0.5, 1, 0.5), EntityType.FIREWORK);
                     FireworkMeta fm = f.getFireworkMeta();
                     fm.clearEffects();

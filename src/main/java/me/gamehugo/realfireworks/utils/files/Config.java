@@ -4,6 +4,7 @@ import me.gamehugo.realfireworks.RealFireworks;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("unused")
 public class Config {
@@ -21,6 +22,10 @@ public class Config {
 
     public static void reload() {
         RealFireworks.getInstance().reloadConfig();
+    }
+
+    public static void save() {
+        RealFireworks.getInstance().saveConfig();
     }
 
     public static File getFile() {

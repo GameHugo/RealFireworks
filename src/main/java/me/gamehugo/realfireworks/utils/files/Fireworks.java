@@ -8,6 +8,7 @@ import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -19,7 +20,19 @@ public class Fireworks {
 
     public static void setup() {
         folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");
-        File file = FileCreator.createFile("/Fireworks", "example.yml");
+        if(Config.getConfig().getBoolean("First")) {
+            File file = FileCreator.createFile("/Fireworks", "example.yml");
+            FileConfiguration config = FileCreator.createConfig(file);
+            config.setDefaults(FileCreator.getDefault("example.yml"));
+            config.options().copyDefaults(true);
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Config.getConfig().set("First", false);
+            Config.save();
+        }
     }
 
     public static void loadFireworks() {

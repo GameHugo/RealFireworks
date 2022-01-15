@@ -1,6 +1,7 @@
 package me.gamehugo.realfireworks.commands;
 
 import me.gamehugo.realfireworks.utils.Chat;
+import me.gamehugo.realfireworks.utils.files.Config;
 import me.gamehugo.realfireworks.utils.files.Fireworks;
 import me.gamehugo.realfireworks.utils.files.Messages;
 import me.gamehugo.realfireworks.utils.menus.FireworkMenu;
@@ -17,8 +18,13 @@ public class RealFireworksCMD implements CommandExecutor {
         Player p = (Player) sender;
         if(args.length > 0) {
             if(args[0].equalsIgnoreCase("reload")) {
+                p.sendMessage(Chat.color("&aReloading plugin..."));
+                long timeAtStart = System.currentTimeMillis();
+                Config.reload();
+                Messages.reload();
                 Fireworks.reload();
-                p.sendMessage(Chat.color("&aReloaded fireworks"));
+                long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
+                p.sendMessage(Chat.color("&aReloaded plugin in "+timeTakenInMS+"ms"));
             }
             return true;
         }

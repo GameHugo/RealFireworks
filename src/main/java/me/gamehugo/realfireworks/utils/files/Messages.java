@@ -26,6 +26,10 @@ public class Messages {
         if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().info("Loaded messages file");
     }
 
+    public static void reload() {
+        setup();
+    }
+
     public static String get(String path) {
         if(getFileConfig().getString(path) != null) {
             return Chat.color(getFileConfig().getString(path));

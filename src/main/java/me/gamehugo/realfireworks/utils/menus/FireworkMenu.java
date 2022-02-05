@@ -24,9 +24,6 @@ public class FireworkMenu {
                     ItemMeta itemMeta = item.getItemMeta();
                     if (itemMeta != null) {
                         itemMeta.setDisplayName(Chat.color(fireworkInfo.getName()));
-                        if (fireworkInfo.getLore() != null) {
-                            itemMeta.setLore(fireworkInfo.getLore());
-                        }
                         item.setItemMeta(itemMeta);
                     }
                     inventory.setItem(count, item);

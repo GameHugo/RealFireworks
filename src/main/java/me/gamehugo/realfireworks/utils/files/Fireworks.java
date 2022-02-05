@@ -87,6 +87,10 @@ public class Fireworks {
             return null;
         }
         fireworkInfo.setFireworkType(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))));
+        if(fireworkInfo.getFireworkType().equals(FireworkType.Cake) && fileConfig.get(path+".CakeEffects") == null) {
+            RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" no CakeEffects\nPATH: "+path);
+            return null;
+        }
         if(fireworkInfo.getFireworkType().equals(FireworkType.Cake)) {
             for(String id : Objects.requireNonNull(fileConfig.getConfigurationSection(path+".CakeEffects")).getKeys(false)) {
                 CakeEffect cakeEffect = new CakeEffect();
@@ -95,6 +99,10 @@ public class Fireworks {
                 fireworkInfo.addTube(cakeEffect);
             }
         } else {
+            if(fileConfig.get(path+".CakeEffects") != null) {
+                RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" there is a CakeEffect and isn't a cake\nPATH: "+path);
+                return null;
+            }
             fireworkInfo.setFireworkEffects(convertFireworkEffects(fileConfig, path));
         }
         return fireworkInfo;

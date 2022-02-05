@@ -3,7 +3,7 @@ version: '${project.version}'
 main: me.gamehugo.realfireworks.RealFireworks
 api-version: 1.16
 authors: [ GameHugo_ ]
-description: Make your own fireworks but then better
+description: '${project.description}'
 website: https://cheesydevs.nl
 commands:
   realfireworks:

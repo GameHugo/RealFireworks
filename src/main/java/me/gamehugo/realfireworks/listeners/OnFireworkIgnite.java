@@ -24,6 +24,8 @@ public class OnFireworkIgnite implements Listener {
                     FireworkLaunchEvent fireworkLaunchEvent = new FireworkLaunchEvent(fireworkInfo);
                     Bukkit.getPluginManager().callEvent(fireworkLaunchEvent);
                     if(!fireworkLaunchEvent.isCancelled()) {
+                        if(e.getPlayer().getGameMode().equals(GameMode.SURVIVAL) || e.getPlayer().getGameMode().equals(GameMode.ADVENTURE))
+                            e.getItem().setAmount(e.getItem().getAmount()-1);
                         switch (fireworkInfo.getFireworkType()) {
                             case Ground:
                                 Firework.getGround().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);

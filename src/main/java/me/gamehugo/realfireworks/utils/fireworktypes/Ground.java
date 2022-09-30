@@ -22,6 +22,7 @@ public class Ground {
         fm.setPower(fireworkEffects.getPower());
         f.setFireworkMeta(fm);
         f.setCustomName("RealFireworks");
+        me.gamehugo.realfireworks.utils.fireworktypes.Firework.getFireworkIds().put(f.getEntityId(), fireworkInfo);
         f.detonate();
     }
 

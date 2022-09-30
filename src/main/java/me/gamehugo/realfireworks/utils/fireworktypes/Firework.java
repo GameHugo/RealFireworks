@@ -1,10 +1,14 @@
 package me.gamehugo.realfireworks.utils.fireworktypes;
 
 import me.gamehugo.realfireworks.RealFireworks;
+import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.files.Config;
 
-public class Firework {
+import java.util.HashMap;
+import java.util.Map;
 
+public class Firework {
+    private static Map<Integer, FireworkInfo> fireworkIds = new HashMap<>();
     private static Ground ground;
     private static Rocket rocket;
     private static Fountain fountain;
@@ -29,5 +33,8 @@ public class Firework {
     }
     public static Cake getCake() {
         return cake;
+    }
+    public static Map<Integer, FireworkInfo> getFireworkIds() {
+        return fireworkIds;
     }
 }

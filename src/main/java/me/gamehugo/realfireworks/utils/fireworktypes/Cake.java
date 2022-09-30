@@ -25,6 +25,7 @@ public class Cake {
                     fm.addEffect(fe);
                     fm.setPower(cakeEffect.getFireworkEffects().getPower());
                     f.setFireworkMeta(fm);
+                    me.gamehugo.realfireworks.utils.fireworktypes.Firework.getFireworkIds().put(f.getEntityId(), fireworkInfo);
                     f.setCustomName("RealFireworks");
                 }, cakeEffect.getDelay());
             }

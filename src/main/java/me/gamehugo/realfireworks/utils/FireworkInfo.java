@@ -9,6 +9,8 @@ public class FireworkInfo {
     private String name;
     private List<String> lore;
     private FireworkType fireworkType;
+    private boolean smoke;
+    private int SmokeIntensity;
     private FireworkEffects fireworkEffects;
     private final List<CakeEffect> tubes = new ArrayList<>();
 
@@ -20,6 +22,12 @@ public class FireworkInfo {
     }
     public void setFireworkType(FireworkType fireworkType) {
         this.fireworkType = fireworkType;
+    }
+    public void setSmoke(boolean smoke) {
+        this.smoke = smoke;
+    }
+    public void setSmokeIntensity(int smokeIntensity) {
+        SmokeIntensity = smokeIntensity;
     }
     public void setFireworkEffects(FireworkEffects fireworkEffects) {
         this.fireworkEffects = fireworkEffects;
@@ -36,6 +44,12 @@ public class FireworkInfo {
     }
     public FireworkType getFireworkType() {
         return fireworkType;
+    }
+    public boolean hasSmoke() {
+        return smoke;
+    }
+    public int getSmokeIntensity() {
+        return SmokeIntensity;
     }
     public FireworkEffects getFireworkEffects() {
         return fireworkEffects;

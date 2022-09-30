@@ -82,6 +82,18 @@ public class Fireworks {
             return null;
         }
         fireworkInfo.setFireworkType(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))));
+        if(fileConfig.get(path+".Smoke") == null) {
+            RealFireworks.getInstance().getLogger().warning("You are missing the smoke with "+path);
+            warnings.put(file, warnings.getOrDefault(file, 0)+1);
+        }
+        fireworkInfo.setSmoke(fileConfig.getBoolean(path+".Smoke"));
+        if(fileConfig.get("SmokeIntensity") == null) {
+            RealFireworks.getInstance().getLogger().warning("You are missing the smokeIntensity with "+path);
+            warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            fireworkInfo.setSmokeIntensity(5);
+        } else {
+            fireworkInfo.setSmokeIntensity(fileConfig.getInt(path+".SmokeIntensity"));
+        }
         if(fireworkInfo.getFireworkType().equals(FireworkType.Cake) && fileConfig.get(path+".CakeEffects") == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" no CakeEffects\nPATH: "+path);
             warnings.put(file, warnings.getOrDefault(file, 0)+1);

@@ -21,5 +21,6 @@ public class Rocket {
         fm.addEffect(fe);
         fm.setPower(fireworkEffects.getPower());
         f.setFireworkMeta(fm);
+        f.setCustomName("RealFireworks");
     }
 }

@@ -15,12 +15,13 @@ public class Ground {
     public void makeFirework(Location loc, FireworkInfo fireworkInfo) {
         FireworkEffects fireworkEffects = fireworkInfo.getFireworkEffects();
         FireworkEffect fe = Builder.build(fireworkEffects);
-        Firework f = (Firework) Objects.requireNonNull(loc.getWorld()).spawnEntity(loc.add(0.5, 0, 0.5), EntityType.FIREWORK);
+        Firework f = (Firework) Objects.requireNonNull(loc.getWorld()).spawnEntity(loc.add(0.5, 1, 0.5), EntityType.FIREWORK);
         FireworkMeta fm = f.getFireworkMeta();
         fm.clearEffects();
         fm.addEffect(fe);
         fm.setPower(fireworkEffects.getPower());
         f.setFireworkMeta(fm);
+        f.setCustomName("RealFireworks");
         f.detonate();
     }
 

@@ -30,8 +30,6 @@ public class OnFireworkMenuClick implements Listener {
                             itemMeta.setLore(fireworkInfo.getLore());
                         }
                         item.setItemMeta(itemMeta);
-                    } else {
-                        if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().severe("Item meta null");
                     }
                     e.getWhoClicked().getInventory().addItem(item);
                 }

@@ -4,7 +4,6 @@ import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.CakeEffect;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
@@ -26,6 +25,7 @@ public class Cake {
                     fm.addEffect(fe);
                     fm.setPower(cakeEffect.getFireworkEffects().getPower());
                     f.setFireworkMeta(fm);
+                    f.setCustomName("RealFireworks");
                 }, cakeEffect.getDelay());
             }
         } else {

@@ -33,7 +33,7 @@ public class RealFireworksCMD implements CommandExecutor, TabExecutor {
             }
             return true;
         }
-        FireworkMenu.open(p);
+        FireworkMenu.open(p, null);
         return true;
     }
 

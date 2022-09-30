@@ -11,6 +11,6 @@ public class Chat {
      * @return  String with color's
      */
     public static String color(String message){
-        return ChatColor.translateAlternateColorCodes('&', message);
+        return message.replace("&", "§");
     }
 }

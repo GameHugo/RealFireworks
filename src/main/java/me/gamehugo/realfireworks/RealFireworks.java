@@ -26,7 +26,6 @@ public final class RealFireworks extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        getLogger().info(Chat.color("&6Loading RealFireworks!"));
         long timeAtStart = System.currentTimeMillis();
         if(Config.getConfig().getBoolean("Debug")) getLogger().info(" ");
 
@@ -41,9 +40,9 @@ public final class RealFireworks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnFireworkIgnite(), this);
         getServer().getPluginManager().registerEvents(new OnFireworkDamage(), this);
         long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
-        getLogger().info(Chat.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
-        getLogger().info(Chat.color("&eVersion: "+getDescription().getVersion()));
-        getLogger().info(Chat.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&eVersion: "+getDescription().getVersion()));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package me.gamehugo.realfireworks;
 
 import me.gamehugo.realfireworks.commands.RealFireworksCMD;
+import me.gamehugo.realfireworks.listeners.OnFireworkDamage;
 import me.gamehugo.realfireworks.listeners.OnFireworkIgnite;
 import me.gamehugo.realfireworks.listeners.OnFireworkMenuClick;
 import me.gamehugo.realfireworks.utils.Chat;
@@ -38,6 +39,7 @@ public final class RealFireworks extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new OnFireworkMenuClick(), this);
         getServer().getPluginManager().registerEvents(new OnFireworkIgnite(), this);
+        getServer().getPluginManager().registerEvents(new OnFireworkDamage(), this);
         long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
         getLogger().info(Chat.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
         getLogger().info(Chat.color("&eVersion: "+getDescription().getVersion()));
@@ -50,7 +52,7 @@ public final class RealFireworks extends JavaPlugin {
     }
 
     private void loadInstances() {
-        if(getDescription().getName().equals("RealFireworks")) {
+        if(getDescription().getName().equals("RealFireworks") && getDescription().getAuthors().contains("GameHugo_")) {
             instance = this;
             Config.setup();
             new Firework().setup();

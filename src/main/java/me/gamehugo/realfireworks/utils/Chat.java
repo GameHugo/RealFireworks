@@ -1,7 +1,5 @@
 package me.gamehugo.realfireworks.utils;
 
-import org.bukkit.ChatColor;
-
 public class Chat {
 
     /**

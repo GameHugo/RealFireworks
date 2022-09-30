@@ -102,4 +102,9 @@ CREEPER
           FadeRed: 255
           FadeGreen: 255
           FadeBlue: 255
+  ```
 </details>
+
+
+## Pro tip🤔💭
+Just play around with the config and you will get it.

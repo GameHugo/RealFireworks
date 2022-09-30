@@ -18,12 +18,13 @@ import java.util.Objects;
 public class Fireworks {
 
     private static File folder;
-    private static final Map<File, Map<String, FireworkInfo>> fireworksList = new HashMap<>();;
+    private static final Map<File, Map<String, FireworkInfo>> fireworksList = new HashMap<>();
     private static final Map<File, Integer> warnings = new HashMap<>();
     public static void setup() {
         folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");
         if(Config.getConfig().getBoolean("First")) {
             File file = FileCreator.createFile("/Fireworks", "example.yml");
+            if(file == null) return;
             FileConfiguration config = FileCreator.createConfig(file);
             config.setDefaults(FileCreator.getDefault("example.yml"));
             config.options().copyDefaults(true);

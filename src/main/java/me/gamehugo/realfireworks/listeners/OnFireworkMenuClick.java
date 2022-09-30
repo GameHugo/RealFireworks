@@ -1,8 +1,6 @@
 package me.gamehugo.realfireworks.listeners;
 
-import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.Chat;
-import me.gamehugo.realfireworks.utils.files.Config;
 import me.gamehugo.realfireworks.utils.files.Fireworks;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.menus.FireworkMenu;

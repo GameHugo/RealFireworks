@@ -33,7 +33,7 @@ public class FileCreator {
         File folder = new File(RealFireworks.getInstance().getDataFolder()+path);
         File file = new File(folder, filename);
         if(!folder.exists()) {
-            folder.mkdirs();
+            if(!folder.mkdirs()) return null;
         }
         if(!file.exists()) {
             if(RealFireworks.getInstance().getResource(path+"/"+filename) != null) {

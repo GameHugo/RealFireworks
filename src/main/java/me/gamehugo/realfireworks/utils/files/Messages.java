@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public class Messages {
@@ -32,7 +33,7 @@ public class Messages {
 
     public static String get(String path) {
         if(getFileConfig().getString(path) != null) {
-            return Chat.color(getFileConfig().getString(path));
+            return Chat.color(Objects.requireNonNull(getFileConfig().getString(path)));
         }
         if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().severe("Message not found ["+path+"]");
         return Chat.color("&cMessage not found");

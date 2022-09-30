@@ -15,7 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Objects;
 
 public final class RealFireworks extends JavaPlugin {
-
     private static RealFireworks instance;
 
     @Override
@@ -56,6 +55,7 @@ public final class RealFireworks extends JavaPlugin {
             Config.setup();
             new Firework().setup();
         } else {
+            getLogger().severe("You can't change the name of the plugin or the author!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }

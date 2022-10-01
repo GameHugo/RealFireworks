@@ -20,6 +20,7 @@ public class RealFireworksCMD implements CommandExecutor, TabExecutor {
         if(!sender.hasPermission("realfireworks.use")) {sender.sendMessage(RealFireworks.getMessages().get("noPerms")); return false;}
         if(args.length > 0) {
             if(args[0].equalsIgnoreCase("reload")) {
+                if(!sender.hasPermission("realfireworks.reload")) {sender.sendMessage(RealFireworks.getMessages().get("noPerms")); return false;}
                 sender.sendMessage(Messages.color("&aReloading plugin..."));
                 long timeAtStart = System.currentTimeMillis();
                 Config.reload();

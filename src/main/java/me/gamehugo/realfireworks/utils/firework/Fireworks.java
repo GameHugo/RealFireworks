@@ -72,6 +72,7 @@ public class Fireworks {
 
     public FireworkInfo getFireworkInfo(File file, FileConfiguration fileConfig, String path) {
         FireworkInfo fireworkInfo = new FireworkInfo();
+        fireworkInfo.setId(path);
         if(fileConfig.getString(path+".Name") == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load a firework...\nPATH: "+path);
             errors.put(file, errors.getOrDefault(file, 0)+1);

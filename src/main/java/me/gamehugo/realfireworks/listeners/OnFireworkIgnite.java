@@ -3,7 +3,6 @@ package me.gamehugo.realfireworks.listeners;
 import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.events.FireworkLaunchEvent;
 import me.gamehugo.realfireworks.utils.files.Messages;
-import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.firework.FireworkBuilder;
 import org.bukkit.*;
@@ -23,7 +22,7 @@ public class OnFireworkIgnite implements Listener {
             if(e.getClickedBlock() != null && e.getClickedBlock().getType().name().contains("DOOR")) return;
             for(Map<String, FireworkInfo> fireworkInfoMap : RealFireworks.getFireworks().getFireworksList().values()) {
                 for(FireworkInfo fireworkInfo : fireworkInfoMap.values()) {
-                    if (Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals(Messages.color(fireworkInfo.getName()))) {
+                    if (Objects.requireNonNull(e.getItem().getItemMeta()).getLocalizedName().equals(Messages.color(fireworkInfo.getId()))) {
                         e.setCancelled(true);
                         FireworkLaunchEvent fireworkLaunchEvent = new FireworkLaunchEvent(fireworkInfo);
                         Bukkit.getPluginManager().callEvent(fireworkLaunchEvent);

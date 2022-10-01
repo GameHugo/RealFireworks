@@ -34,6 +34,7 @@ public class OnFireworkMenuClick implements Listener {
                         ItemMeta itemMeta = item.getItemMeta();
                         if (itemMeta != null) {
                             itemMeta.setDisplayName(Messages.color(fireworkInfo.getName()));
+                            itemMeta.setLocalizedName(fireworkInfo.getId());
                             if (fireworkInfo.getLore() != null) {
                                 itemMeta.setLore(fireworkInfo.getLore());
                             }

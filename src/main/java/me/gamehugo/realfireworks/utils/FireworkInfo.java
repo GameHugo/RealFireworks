@@ -6,12 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FireworkInfo {
+    private String id;
     private String name;
     private List<String> lore;
     private FireworkType fireworkType;
     private FireworkEffects fireworkEffects;
     private final List<CakeEffect> tubes = new ArrayList<>();
 
+    public void setId(String id) {
+        this.id = id;
+    }
     public void setName(String name) {
         this.name = name;
     }
@@ -28,6 +32,9 @@ public class FireworkInfo {
         tubes.add(cakeEffect);
     }
 
+    public String getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }

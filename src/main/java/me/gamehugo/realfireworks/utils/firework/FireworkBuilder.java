@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class FireworkBuilder {
-    private static final Map<Integer, FireworkInfo> activeEntityIds = new HashMap<>();
+    private static final Map<Integer, Map<FireworkInfo, FireworkEffects>> activeEntityIds = new HashMap<>();
 
     public static void igniteFirework(Location location, FireworkInfo fireworkInfo) {
         if(fireworkInfo.getFireworkType().equals(FireworkType.GROUND)) {
@@ -36,16 +36,14 @@ public class FireworkBuilder {
     private static void ground(Location location, FireworkInfo fireworkInfo) {
         if(fireworkInfo.getFireworkType() != FireworkType.GROUND) return;
         Firework firework = (Firework)Objects.requireNonNull(location.getWorld()).spawnEntity(location.add(0.5, 1, 0.5), EntityType.FIREWORK);
-        setFireworkInfo(firework, fireworkInfo);
-        activeEntityIds.put(firework.getEntityId(), fireworkInfo);
+        setFireworkInfo(firework, fireworkInfo, fireworkInfo.getFireworkEffects());
         firework.detonate();
     }
 
     private static void rocket(Location location, FireworkInfo fireworkInfo) {
         if(fireworkInfo.getFireworkType() != FireworkType.ROCKET) return;
         Firework firework = (Firework) Objects.requireNonNull(location.getWorld()).spawnEntity(location.add(0.5, 1, 0.5), EntityType.FIREWORK);
-        setFireworkInfo(firework, fireworkInfo);
-        activeEntityIds.put(firework.getEntityId(), fireworkInfo);
+        setFireworkInfo(firework, fireworkInfo, fireworkInfo.getFireworkEffects());
     }
 
     private static void fountain(Location location, FireworkInfo fireworkInfo) {
@@ -62,14 +60,8 @@ public class FireworkBuilder {
         if(fireworkInfo.getTubes().size() > 0) {
             for (CakeEffect cakeEffect : fireworkInfo.getTubes()) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(RealFireworks.getInstance(), () -> {
-                    FireworkEffect fireworkEffect = buildEffects(cakeEffect.getFireworkEffects());
                     Firework firework = (Firework) Objects.requireNonNull(location.getWorld()).spawnEntity(location.clone().add(0.5, 1, 0.5), EntityType.FIREWORK);
-                    FireworkMeta fireworkMeta = firework.getFireworkMeta();
-                    fireworkMeta.clearEffects();
-                    fireworkMeta.addEffect(fireworkEffect);
-                    fireworkMeta.setPower(cakeEffect.getFireworkEffects().getPower());
-                    firework.setFireworkMeta(fireworkMeta);
-                    activeEntityIds.put(firework.getEntityId(), fireworkInfo);
+                    setFireworkInfo(firework, fireworkInfo, cakeEffect.getFireworkEffects());
                 }, cakeEffect.getDelay());
             }
         } else {
@@ -77,14 +69,17 @@ public class FireworkBuilder {
         }
     }
 
-    public static void setFireworkInfo(Firework firework, FireworkInfo fireworkInfo) {
+    public static void setFireworkInfo(Firework firework, FireworkInfo fireworkInfo, FireworkEffects fireworkEffects) {
         FireworkMeta fireworkMeta = firework.getFireworkMeta();
         fireworkMeta.clearEffects();
-        FireworkEffect fireworkEffect = buildEffects(fireworkInfo.getFireworkEffects());
+        FireworkEffect fireworkEffect = buildEffects(fireworkEffects);
         fireworkMeta.addEffect(fireworkEffect);
-        fireworkMeta.setPower(fireworkInfo.getFireworkEffects().getPower());
+        fireworkMeta.setPower(fireworkEffects.getPower());
         firework.setFireworkMeta(fireworkMeta);
         firework.setCustomName("RealFireworks");
+        Map<FireworkInfo, FireworkEffects> fireworkEffectsMap = activeEntityIds.getOrDefault(firework.getEntityId(), new HashMap<>());
+        fireworkEffectsMap.put(fireworkInfo, fireworkEffects);
+        activeEntityIds.put(firework.getEntityId(), fireworkEffectsMap);
     }
 
     public static FireworkEffect buildEffects(FireworkEffects fireworkEffects) {
@@ -99,7 +94,7 @@ public class FireworkBuilder {
         return fb.build();
     }
 
-    public static Map<Integer, FireworkInfo> getActiveEntityIds() {
+    public static Map<Integer, Map<FireworkInfo, FireworkEffects>> getActiveEntityIds() {
         return activeEntityIds;
     }
 }

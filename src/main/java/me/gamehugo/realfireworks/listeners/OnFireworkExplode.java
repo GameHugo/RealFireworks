@@ -1,5 +1,6 @@
 package me.gamehugo.realfireworks.listeners;
 
+import me.gamehugo.realfireworks.utils.FireworkEffects;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.firework.FireworkBuilder;
 import me.gamehugo.realfireworks.utils.firework.FireworkType;
@@ -15,16 +16,17 @@ public class OnFireworkExplode implements Listener {
     public void onFireworkExplode(FireworkExplodeEvent e) {
         if(!FireworkBuilder.getActiveEntityIds().containsKey(e.getEntity().getEntityId())) return;
         if(e.getEntity().getCustomName() == null || !e.getEntity().getCustomName().equals("RealFireworks")) return;
-        FireworkInfo fireworkInfo = FireworkBuilder.getActiveEntityIds().get(e.getEntity().getEntityId());
+        FireworkEffects fireworkEffects = FireworkBuilder.getActiveEntityIds().get(e.getEntity().getEntityId()).values().iterator().next();
+        FireworkInfo fireworkInfo = FireworkBuilder.getActiveEntityIds().get(e.getEntity().getEntityId()).keySet().iterator().next();
         FireworkBuilder.getActiveEntityIds().remove(e.getEntity().getEntityId());
-        if(fireworkInfo != null && fireworkInfo.getFireworkEffects() != null && fireworkInfo.getFireworkEffects().hasSmoke()) {
-            int size = fireworkInfo.getFireworkEffects().getSmokeSize();
+        if(fireworkEffects != null && fireworkEffects.hasSmoke()) {
+            int size = fireworkEffects.getSmokeSize();
             Location loc = e.getEntity().getLocation();
             if(fireworkInfo.getFireworkType().equals(FireworkType.ROCKET)) {
                 loc.add(0, -1, 0);
             }
             e.getEntity().getWorld().spawnParticle(Particle.CAMPFIRE_COSY_SMOKE, loc,
-                    fireworkInfo.getFireworkEffects().getSmokeIntensity()*5, size*0.25, -size*0.25, size*0.25, 0.005);
+                    fireworkEffects.getSmokeIntensity()*5, size*0.25, -size*0.25, size*0.25, 0.005);
         }
     }
 }

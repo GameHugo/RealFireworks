@@ -8,8 +8,7 @@ import me.gamehugo.realfireworks.listeners.OnFireworkMenuClick;
 import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.files.Config;
 import me.gamehugo.realfireworks.utils.files.Messages;
-import me.gamehugo.realfireworks.utils.fireworktypes.Firework;
-import me.gamehugo.realfireworks.utils.files.Fireworks;
+import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -55,7 +54,6 @@ public final class RealFireworks extends JavaPlugin {
         if(getDescription().getName().equals("RealFireworks") && getDescription().getAuthors().contains("GameHugo_")) {
             instance = this;
             Config.setup();
-            new Firework().setup();
         } else {
             getLogger().severe("You can't change the name of the plugin or the author!");
             Bukkit.getPluginManager().disablePlugin(this);

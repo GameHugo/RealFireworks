@@ -1,11 +1,10 @@
 package me.gamehugo.realfireworks.listeners;
 
-import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.events.FireworkLaunchEvent;
-import me.gamehugo.realfireworks.utils.files.Fireworks;
+import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
-import me.gamehugo.realfireworks.utils.fireworktypes.Firework;
+import me.gamehugo.realfireworks.utils.firework.FireworkBuilder;
 import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,20 +29,7 @@ public class OnFireworkIgnite implements Listener {
                         if (!fireworkLaunchEvent.isCancelled()) {
                             if (e.getPlayer().getGameMode().equals(GameMode.SURVIVAL) || e.getPlayer().getGameMode().equals(GameMode.ADVENTURE))
                                 e.getItem().setAmount(e.getItem().getAmount() - 1);
-                            switch (fireworkInfo.getFireworkType()) {
-                                case Ground:
-                                    Firework.getGround().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
-                                    break;
-                                case Rocket:
-                                    Firework.getRocket().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
-                                    break;
-                                case Fountain:
-                                    Firework.getFountain().makeFirework();
-                                    break;
-                                case Cake:
-                                    Firework.getCake().makeFirework(Objects.requireNonNull(e.getClickedBlock()).getLocation(), fireworkInfo);
-                                    break;
-                            }
+                            FireworkBuilder.igniteFirework(e.getClickedBlock().getLocation(), fireworkInfo);
                             return;
                         }
                     }

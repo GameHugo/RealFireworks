@@ -3,7 +3,7 @@ package me.gamehugo.realfireworks.utils.menus;
 import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
-import me.gamehugo.realfireworks.utils.files.Fireworks;
+import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

@@ -1,11 +1,11 @@
-package me.gamehugo.realfireworks.utils.files;
+package me.gamehugo.realfireworks.utils.firework;
 
 import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.CakeEffect;
 import me.gamehugo.realfireworks.utils.FireworkEffects;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
-import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
-import org.bukkit.Color;
+import me.gamehugo.realfireworks.utils.files.Config;
+import me.gamehugo.realfireworks.utils.files.FileCreator;
 import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -86,12 +86,12 @@ public class Fireworks {
             return null;
         }
         fireworkInfo.setFireworkType(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))));
-        if(fireworkInfo.getFireworkType().equals(FireworkType.Cake) && fileConfig.get(path+".CakeEffects") == null) {
+        if(fireworkInfo.getFireworkType().equals(FireworkType.CAKE) && fileConfig.get(path+".CakeEffects") == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" no CakeEffects\nPATH: "+path);
             warnings.put(file, warnings.getOrDefault(file, 0)+1);
             return null;
         }
-        if(fireworkInfo.getFireworkType().equals(FireworkType.Cake)) {
+        if(fireworkInfo.getFireworkType().equals(FireworkType.CAKE)) {
             for(String id : Objects.requireNonNull(fileConfig.getConfigurationSection(path+".CakeEffects")).getKeys(false)) {
                 CakeEffect cakeEffect = new CakeEffect();
                 cakeEffect.setDelay(fileConfig.getInt(path+".CakeEffects."+id+".Delay"));

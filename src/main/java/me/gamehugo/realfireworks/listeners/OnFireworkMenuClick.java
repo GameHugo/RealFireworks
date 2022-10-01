@@ -1,7 +1,7 @@
 package me.gamehugo.realfireworks.listeners;
 
 import me.gamehugo.realfireworks.utils.Chat;
-import me.gamehugo.realfireworks.utils.files.Fireworks;
+import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.menus.FireworkMenu;
 import org.bukkit.Material;

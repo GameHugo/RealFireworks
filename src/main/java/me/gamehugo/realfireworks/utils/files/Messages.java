@@ -1,7 +1,6 @@
 package me.gamehugo.realfireworks.utils.files;
 
 import me.gamehugo.realfireworks.RealFireworks;
-import me.gamehugo.realfireworks.utils.Chat;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
@@ -33,10 +32,20 @@ public class Messages {
 
     public static String get(String path) {
         if(getFileConfig().getString(path) != null) {
-            return Chat.color(Objects.requireNonNull(getFileConfig().getString(path)));
+            return color(Objects.requireNonNull(getFileConfig().getString(path)));
         }
         if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().severe("Message not found ["+path+"]");
-        return Chat.color("&cMessage not found");
+        return color("&cMessage not found");
+    }
+
+    /**
+     * Change a string into colors
+     *
+     * @param message  The message that you want to translate to colors
+     * @return  String with color's
+     */
+    public static String color(String message){
+        return message.replace("&", "§");
     }
 
     public static File getFile() {

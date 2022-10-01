@@ -1,8 +1,8 @@
 package me.gamehugo.realfireworks.utils.menus;
 
 import me.gamehugo.realfireworks.RealFireworks;
-import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
+import me.gamehugo.realfireworks.utils.files.Messages;
 import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,14 +19,14 @@ public class FireworkMenu {
 
     public static void open(Player player, File file) {
         if(file == null) {
-            final Inventory inventory = Bukkit.createInventory(null, size(Fireworks.getFireworksList().size()), Chat.color("&6Firework Menu"));
+            final Inventory inventory = Bukkit.createInventory(null, size(Fireworks.getFireworksList().size()), Messages.color("&6Firework Menu"));
             int count = 0;
             for (File files : Fireworks.getFireworksList().keySet()) {
                 if(files == null) continue;
                 List<String> lore = new ArrayList<>();
-                lore.add(Chat.color("&6Fireworks: &e"+Fireworks.getFireworksList().get(files).size()));
+                lore.add(Messages.color("&6Fireworks: &e"+Fireworks.getFireworksList().get(files).size()));
                 if(Fireworks.getWarnings().containsKey(files)) {
-                    lore.add(Chat.color("&4Warnings: &c"+Fireworks.getWarnings().get(files)));
+                    lore.add(Messages.color("&4Warnings: &c"+Fireworks.getWarnings().get(files)));
                 }
                 inventory.setItem(count, createItem("&a"+files.getName(), lore));
                 count++;
@@ -34,17 +34,17 @@ public class FireworkMenu {
             player.openInventory(inventory);
             return;
         }
-        final Inventory inventory = Bukkit.createInventory(null, size(Fireworks.getFireworksList().get(file).size()), Chat.color("&a"+file.getName()));
+        final Inventory inventory = Bukkit.createInventory(null, size(Fireworks.getFireworksList().get(file).size()), Messages.color("&a"+file.getName()));
         if (!(Fireworks.getFireworksList().get(file).size() > 54) && Fireworks.getFireworksList().get(file).size() > 0) {
             int count = 0;
             for (FireworkInfo fireworkInfo : Fireworks.getFireworksList().get(file).values()) {
                 List<String> lore = new ArrayList<>();
-                lore.add(Chat.color("&6Type: &e"+fireworkInfo.getFireworkType().name()));
+                lore.add(Messages.color("&6Type: &e"+fireworkInfo.getFireworkType().name()));
                 inventory.setItem(count, createItem(fireworkInfo.getName(), lore));
                 count++;
             }
         } else {
-            player.sendMessage(Chat.color("&cCannot open menu... If you are a server administrator check console"));
+            player.sendMessage(Messages.color("&cCannot open menu... If you are a server administrator check console"));
             RealFireworks.getInstance().getLogger().severe("Too many fireworks... max is 54 and yours is " + Fireworks.getFireworksList().size() + ".");
         }
         player.openInventory(inventory);
@@ -54,7 +54,7 @@ public class FireworkMenu {
         ItemStack item = new ItemStack(Material.FIREWORK_ROCKET);
         ItemMeta itemMeta = item.getItemMeta();
         if (itemMeta != null) {
-            itemMeta.setDisplayName(Chat.color(name));
+            itemMeta.setDisplayName(Messages.color(name));
             itemMeta.setLore(lore);
             item.setItemMeta(itemMeta);
         }

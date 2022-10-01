@@ -5,7 +5,6 @@ import me.gamehugo.realfireworks.listeners.OnFireworkDamage;
 import me.gamehugo.realfireworks.listeners.OnFireworkExplode;
 import me.gamehugo.realfireworks.listeners.OnFireworkIgnite;
 import me.gamehugo.realfireworks.listeners.OnFireworkMenuClick;
-import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.files.Config;
 import me.gamehugo.realfireworks.utils.files.Messages;
 import me.gamehugo.realfireworks.utils.firework.Fireworks;
@@ -40,9 +39,9 @@ public final class RealFireworks extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new OnFireworkDamage(), this);
         getServer().getPluginManager().registerEvents(new OnFireworkExplode(), this);
         long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
-        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
-        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&eVersion: "+getDescription().getVersion()));
-        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Chat.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&eVersion: "+getDescription().getVersion()));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
     }
 
     @Override

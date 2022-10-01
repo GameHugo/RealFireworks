@@ -1,6 +1,5 @@
 package me.gamehugo.realfireworks.commands;
 
-import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.utils.files.Config;
 import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import me.gamehugo.realfireworks.utils.files.Messages;
@@ -21,17 +20,17 @@ public class RealFireworksCMD implements CommandExecutor, TabExecutor {
         if(!sender.hasPermission("realfireworks.use")) {sender.sendMessage(Messages.get("noPerms")); return false;}
         if(args.length > 0) {
             if(args[0].equalsIgnoreCase("reload")) {
-                sender.sendMessage(Chat.color("&aReloading plugin..."));
+                sender.sendMessage(Messages.color("&aReloading plugin..."));
                 long timeAtStart = System.currentTimeMillis();
                 Config.reload();
                 Messages.reload();
                 Fireworks.reload();
                 long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
-                sender.sendMessage(Chat.color("&aReloaded plugin in "+timeTakenInMS+"ms"));
+                sender.sendMessage(Messages.color("&aReloaded plugin in "+timeTakenInMS+"ms"));
             }
             return true;
         }
-        if(!(sender instanceof Player)) {sender.sendMessage(Chat.color("&cYou can only do this as player.")); return false;}
+        if(!(sender instanceof Player)) {sender.sendMessage(Messages.color("&cYou can only do this as player.")); return false;}
         Player p = (Player) sender;
         FireworkMenu.open(p, null);
         return true;

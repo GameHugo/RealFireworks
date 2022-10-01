@@ -1,6 +1,6 @@
 package me.gamehugo.realfireworks.listeners;
 
-import me.gamehugo.realfireworks.utils.Chat;
+import me.gamehugo.realfireworks.utils.files.Messages;
 import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.menus.FireworkMenu;
@@ -19,7 +19,7 @@ public class OnFireworkMenuClick implements Listener {
 
     @EventHandler
     public void OnInvClick(InventoryClickEvent e) {
-        if(e.getView().getTitle().equals(Chat.color("&6Firework Menu")) || isTitle(e.getView().getTitle())) {
+        if(e.getView().getTitle().equals(Messages.color("&6Firework Menu")) || isTitle(e.getView().getTitle())) {
             e.setCancelled(true);
             if(e.getCurrentItem() == null ||
                e.getCurrentItem().getType() == Material.AIR ||
@@ -30,11 +30,11 @@ public class OnFireworkMenuClick implements Listener {
                     FireworkMenu.open((Player) e.getWhoClicked(), files);
                 }
                 for (FireworkInfo fireworkInfo : Fireworks.getFireworksList().get(files).values()) {
-                    if (Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getDisplayName().equals(Chat.color(fireworkInfo.getName()))) {
+                    if (Objects.requireNonNull(Objects.requireNonNull(e.getCurrentItem()).getItemMeta()).getDisplayName().equals(Messages.color(fireworkInfo.getName()))) {
                         ItemStack item = new ItemStack(Material.FIREWORK_ROCKET, 1);
                         ItemMeta itemMeta = item.getItemMeta();
                         if (itemMeta != null) {
-                            itemMeta.setDisplayName(Chat.color(fireworkInfo.getName()));
+                            itemMeta.setDisplayName(Messages.color(fireworkInfo.getName()));
                             if (fireworkInfo.getLore() != null) {
                                 itemMeta.setLore(fireworkInfo.getLore());
                             }

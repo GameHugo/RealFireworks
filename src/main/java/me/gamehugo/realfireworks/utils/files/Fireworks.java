@@ -5,10 +5,12 @@ import me.gamehugo.realfireworks.utils.CakeEffect;
 import me.gamehugo.realfireworks.utils.FireworkEffects;
 import me.gamehugo.realfireworks.utils.FireworkInfo;
 import me.gamehugo.realfireworks.utils.fireworktypes.FireworkType;
+import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -19,6 +21,7 @@ public class Fireworks {
     private static File folder;
     private static final Map<File, Map<String, FireworkInfo>> fireworksList = new HashMap<>();
     private static final Map<File, Integer> warnings = new HashMap<>();
+    private static boolean fixWarnings;
     public static void setup() {
         folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");
     }
@@ -26,6 +29,7 @@ public class Fireworks {
     public static void loadFireworks() {
         fireworksList.clear();
         warnings.clear();
+        fixWarnings = Config.getConfig().getBoolean("FixWarnings");
         for (File file : Objects.requireNonNull(folder.listFiles())) {
             if(!file.getName().substring(file.getName().lastIndexOf('.')+1).equals("yml")) {
                 RealFireworks.getInstance().getLogger().severe("Wrong file type " + file.getName());
@@ -125,77 +129,171 @@ public class Fireworks {
             return null;
         }
         if (fileConfig.get(path + ".FireworkEffects.Power") == null) {
-            if(tubeId == null) {
-                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no power in FireworkEffects");
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            if(fixWarnings) {
+                fileConfig.set(path + ".FireworkEffects.Power", 1);
+                fireworkEffects.setPower(1);
+                if(tubeId == null) {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no Power");
+                } else {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no Power");
+                }
+                try {
+                    fileConfig.save(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
-                RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' and tubeID '" + tubeId + "' no power in FireworkEffects");
+                RealFireworks.getInstance().getLogger().warning("You are missing the Power in the FireworkEffects of " + id);
+                fireworkEffects.setPower(1);
                 warnings.put(file, warnings.getOrDefault(file, 0)+1);
             }
-            return null;
+        } else {
+            fireworkEffects.setPower(fileConfig.getInt(path + ".FireworkEffects.Power"));
         }
         if(fileConfig.get(path+".FireworkEffects.Smoke") == null) {
-            RealFireworks.getInstance().getLogger().warning("You are missing the Smoke with "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
-        }
-        fireworkEffects.setSmoke(fileConfig.getBoolean(path+".FireworkEffects.Smoke"));
-        if(fileConfig.get(path+".FireworkEffects.SmokeIntensity") == null) {
-            RealFireworks.getInstance().getLogger().warning("You are missing the SmokeIntensity with "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
-            fireworkEffects.setSmokeIntensity(1);
-        } else {
-            fireworkEffects.setSmokeIntensity(fileConfig.getInt(path+".FireworkEffects.SmokeIntensity"));
-        }
-        if(fileConfig.get(path+".FireworkEffects.SmokeSize") == null) {
-            RealFireworks.getInstance().getLogger().warning("You are missing the SmokeSize with "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
-            fireworkEffects.setSmokeSize(1);
-        } else {
-            fireworkEffects.setSmokeSize(fileConfig.getInt(path+".FireworkEffects.SmokeSize"));
-        }
-        fireworkEffects.setPower(fileConfig.getInt(path + ".FireworkEffects.Power"));
-        if(fileConfig.get(path + ".FireworkEffects.Type") == null) {
-            if(tubeId == null) {
-                RealFireworks.getInstance().getLogger().warning("You are missing the type with firework '" + id + "' so the type will be BALL");
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            if(fixWarnings) {
+                fileConfig.set(path + ".FireworkEffects.Smoke", false);
+                fireworkEffects.setSmoke(false);
+                if(tubeId == null) {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no Smoke");
+                } else {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no Smoke");
+                }
+                try {
+                    fileConfig.save(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
+                RealFireworks.getInstance().getLogger().warning("You are missing the Smoke in the FireworkEffects of " + id);
                 warnings.put(file, warnings.getOrDefault(file, 0)+1);
-                RealFireworks.getInstance().getLogger().warning("You are missing the type with firework '" + id + "' and tubeID '" + tubeId + "' so the type will be BALL");
             }
-            fireworkEffects.setType(FireworkEffect.Type.BALL);
+        } else {
+            fireworkEffects.setSmoke(fileConfig.getBoolean(path+".FireworkEffects.Smoke"));
+        }
+        if(fireworkEffects.hasSmoke()) {
+            if (fileConfig.get(path + ".FireworkEffects.SmokeIntensity") == null) {
+                if (fixWarnings) {
+                    fileConfig.set(path + ".FireworkEffects.SmokeIntensity", 1);
+                    fireworkEffects.setSmokeIntensity(1);
+                    if (tubeId == null) {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no SmokeIntensity");
+                    } else {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no SmokeIntensity");
+                    }
+                    try {
+                        fileConfig.save(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    RealFireworks.getInstance().getLogger().warning("You are missing the SmokeIntensity in the FireworkEffects of " + id);
+                    warnings.put(file, warnings.getOrDefault(file, 0) + 1);
+                }
+            } else {
+                fireworkEffects.setSmokeIntensity(fileConfig.getInt(path + ".FireworkEffects.SmokeIntensity"));
+            }
+            if (fileConfig.get(path + ".FireworkEffects.SmokeSize") == null) {
+                if (fixWarnings) {
+                    fileConfig.set(path + ".FireworkEffects.SmokeSize", 1);
+                    fireworkEffects.setSmokeSize(1);
+                    if (tubeId == null) {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no SmokeSize");
+                    } else {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no SmokeSize");
+                    }
+                    try {
+                        fileConfig.save(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                } else {
+                    RealFireworks.getInstance().getLogger().warning("You are missing the SmokeSize in the FireworkEffects of " + id);
+                    warnings.put(file, warnings.getOrDefault(file, 0) + 1);
+                }
+            } else {
+                fireworkEffects.setSmokeSize(fileConfig.getInt(path + ".FireworkEffects.SmokeSize"));
+            }
+        }
+        if(fileConfig.get(path + ".FireworkEffects.Type") == null) {
+            if(fixWarnings) {
+                fileConfig.set(path + ".FireworkEffects.Type", "BALL");
+                fireworkEffects.setType(FireworkEffect.Type.BALL);
+                if(tubeId == null) {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no Type");
+                } else {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no Type");
+                }
+                try {
+                    fileConfig.save(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                RealFireworks.getInstance().getLogger().warning("You are missing the Type in the FireworkEffects of " + id);
+                fireworkEffects.setType(FireworkEffect.Type.BALL);
+                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            }
         } else {
             fireworkEffects.setType(FireworkEffect.Type.valueOf(fileConfig.getString(path + ".FireworkEffects.Type")));
         }
         if (fileConfig.get(path + ".FireworkEffects.Red") == null || fileConfig.get(path + ".FireworkEffects.Green") == null || fileConfig.get(path + ".FireworkEffects.Blue") == null) {
-            if(tubeId == null) {
-                RealFireworks.getInstance().getLogger().warning("You are missing color(s) with firework '" + id + "' so the color will be black");
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            if(fixWarnings) {
+                fileConfig.set(path + ".FireworkEffects.Red", 255);
+                fileConfig.set(path + ".FireworkEffects.Green", 255);
+                fileConfig.set(path + ".FireworkEffects.Blue", 255);
+                fireworkEffects.setColor(255, 255, 255);
+                if(tubeId == null) {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no Color");
+                } else {
+                    RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no Color");
+                }
+                try {
+                    fileConfig.save(file);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             } else {
-                RealFireworks.getInstance().getLogger().warning("You are missing color(s) with firework '" + id + "' and tubeID '" + tubeId + "' so the color will be black");
+                RealFireworks.getInstance().getLogger().warning("You are missing the Color in the FireworkEffects of " + id);
+                fireworkEffects.setColor(255, 255, 255);
                 warnings.put(file, warnings.getOrDefault(file, 0)+1);
             }
+        } else {
+            fireworkEffects.setColor(
+                    fileConfig.getInt(path + ".FireworkEffects.Red"),
+                    fileConfig.getInt(path + ".FireworkEffects.Green"),
+                    fileConfig.getInt(path + ".FireworkEffects.Blue"));
         }
-        fireworkEffects.setColor(
-                fileConfig.getInt(path + ".FireworkEffects.Red"),
-                fileConfig.getInt(path + ".FireworkEffects.Green"),
-                fileConfig.getInt(path + ".FireworkEffects.Blue"));
         fireworkEffects.setFade(fileConfig.getBoolean(path + ".FireworkEffects.Fade"));
         if (fireworkEffects.getFade()) {
             if (fileConfig.get(path + ".FireworkEffects.FadeRed") == null || fileConfig.get(path + ".FireworkEffects.FadeGreen") == null || fileConfig.get(path + ".FireworkEffects.FadeBlue") == null) {
-                if(tubeId == null) {
-                    RealFireworks.getInstance().getLogger().warning("You are missing fade color(s) with firework '" + id + "' so the fade will be partly black");
-                    warnings.put(file, warnings.getOrDefault(file, 0)+1);
+                if(fixWarnings) {
+                    fileConfig.set(path + ".FireworkEffects.FadeRed", 255);
+                    fileConfig.set(path + ".FireworkEffects.FadeGreen", 255);
+                    fileConfig.set(path + ".FireworkEffects.FadeBlue", 255);
+                    fireworkEffects.setFadeColor(255, 255, 255);
+                    if(tubeId == null) {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' no FadeColor");
+                    } else {
+                        RealFireworks.getInstance().getLogger().info("Fixed firework '" + id + "' and tubeID '" + tubeId + "' no FadeColor");
+                    }
+                    try {
+                        fileConfig.save(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else {
-                    RealFireworks.getInstance().getLogger().warning("You are missing fade color(s) with firework '" + id + "' and tubeID '" + tubeId + "' so the fade will be partly black");
+                    RealFireworks.getInstance().getLogger().warning("You are missing the FadeColor in the FireworkEffects of " + id);
+                    fireworkEffects.setFadeColor(255, 255, 255);
                     warnings.put(file, warnings.getOrDefault(file, 0)+1);
                 }
+            } else {
+                fireworkEffects.setFadeColor(
+                        fileConfig.getInt(path + ".FireworkEffects.FadeRed"),
+                        fileConfig.getInt(path + ".FireworkEffects.FadeGreen"),
+                        fileConfig.getInt(path + ".FireworkEffects.FadeBlue"));
             }
-            fireworkEffects.setFadeColor(
-                    fileConfig.getInt(path + ".FireworkEffects.FadeRed"),
-                    fileConfig.getInt(path + ".FireworkEffects.FadeGreen"),
-                    fileConfig.getInt(path + ".FireworkEffects.FadeBlue"));
         }
-
         fireworkEffects.setFlicker(fileConfig.getBoolean(path + ".FireworkEffects.Flicker"));
         fireworkEffects.setTrail(fileConfig.getBoolean(path + ".FireworkEffects.Trail"));
         return fireworkEffects;

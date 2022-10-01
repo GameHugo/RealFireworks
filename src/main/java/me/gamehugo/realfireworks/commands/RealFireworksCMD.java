@@ -18,21 +18,21 @@ public class RealFireworksCMD implements CommandExecutor, TabExecutor {
     private final List<String> strings = List.of("reload");
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(!(sender instanceof Player)) {sender.sendMessage(Chat.color("&cYou can only do this as player.")); return false;}
         if(!sender.hasPermission("realfireworks.use")) {sender.sendMessage(Messages.get("noPerms")); return false;}
-        Player p = (Player) sender;
         if(args.length > 0) {
             if(args[0].equalsIgnoreCase("reload")) {
-                p.sendMessage(Chat.color("&aReloading plugin..."));
+                sender.sendMessage(Chat.color("&aReloading plugin..."));
                 long timeAtStart = System.currentTimeMillis();
                 Config.reload();
                 Messages.reload();
                 Fireworks.reload();
                 long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
-                p.sendMessage(Chat.color("&aReloaded plugin in "+timeTakenInMS+"ms"));
+                sender.sendMessage(Chat.color("&aReloaded plugin in "+timeTakenInMS+"ms"));
             }
             return true;
         }
+        if(!(sender instanceof Player)) {sender.sendMessage(Chat.color("&cYou can only do this as player.")); return false;}
+        Player p = (Player) sender;
         FireworkMenu.open(p, null);
         return true;
     }

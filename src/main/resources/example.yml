@@ -1,8 +1,8 @@
 example:
-  Name: "&cExample Firework"
+  Name: '&cExample Firework'
   Lore:
-    - "Right click to use"
-  FireworkType: "ground"
+    - Right click to use
+  FireworkType: ground
   FireworkEffects:
     Power: 2
     Smoke: true
@@ -15,17 +15,34 @@ example:
     Flicker: true
     Trail: false
     Fade: false
-example-cake:
-  Name: "&cExample Cake"
+example-rocket:
+  Name: '&cExample rocket'
   Lore:
-    - "Right click to use"
-  FireworkType: "cake"
+    - Right click to use
+  FireworkType: rocket
+  FireworkEffects:
+    Power: 1
+    Smoke: true
+    SmokeIntensity: 1
+    SmokeSize: 2
+    Type: BALL
+    Red: 20
+    Green: 81
+    Blue: 179
+    Flicker: true
+    Trail: false
+    Fade: false
+example-cake:
+  Name: '&cExample Cake'
+  Lore:
+    - Right click to use
+  FireworkType: cake
   CakeEffects:
-    1:
+    '1':
       Delay: 5
       FireworkEffects:
-        Power: 2
         Type: BALL
+        Smoke: false
         Red: 20
         Green: 81
         Blue: 179
@@ -35,10 +52,12 @@ example-cake:
         FadeRed: 255
         FadeGreen: 255
         FadeBlue: 255
-    2:
+        Power: 1
+    '2':
       Delay: 20
       FireworkEffects:
         Power: 2
+        Smoke: false
         Type: BALL
         Red: 20
         Green: 81

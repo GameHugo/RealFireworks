@@ -1,3 +1,4 @@
 # ONLY CHANGE IF YOU KNOW WHAT YOU'RE DOING
 Debug: false
 FireworkDamage: false
+FixWarnings: false

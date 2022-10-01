@@ -1,13 +1,11 @@
-example:
+example-ground:
   Name: '&cExample Firework'
   Lore:
     - Right click to use
   FireworkType: ground
   FireworkEffects:
     Power: 2
-    Smoke: true
-    SmokeIntensity: 1
-    SmokeSize: 1
+    Smoke: false
     Type: BALL
     Red: 20
     Green: 81
@@ -16,7 +14,7 @@ example:
     Trail: false
     Fade: false
 example-rocket:
-  Name: '&cExample rocket'
+  Name: '&cExample Rocket'
   Lore:
     - Right click to use
   FireworkType: rocket
@@ -25,7 +23,7 @@ example-rocket:
     Smoke: true
     SmokeIntensity: 1
     SmokeSize: 2
-    Type: BALL
+    Type: BALL_LARGE
     Red: 20
     Green: 81
     Blue: 179
@@ -58,7 +56,7 @@ example-cake:
       FireworkEffects:
         Power: 2
         Smoke: false
-        Type: BALL
+        Type: BURST
         Red: 20
         Green: 81
         Blue: 179

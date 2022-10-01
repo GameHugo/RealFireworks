@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Firework {
-    private static Map<Integer, FireworkInfo> fireworkIds = new HashMap<>();
+    private static final Map<Integer, FireworkInfo> fireworkIds = new HashMap<>();
     private static Ground ground;
     private static Rocket rocket;
     private static Fountain fountain;

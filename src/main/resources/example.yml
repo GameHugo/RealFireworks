@@ -5,6 +5,9 @@ example:
   FireworkType: "ground"
   FireworkEffects:
     Power: 2
+    Smoke: true
+    SmokeIntensity: 1
+    SmokeSize: 1
     Type: BALL
     Red: 20
     Green: 81

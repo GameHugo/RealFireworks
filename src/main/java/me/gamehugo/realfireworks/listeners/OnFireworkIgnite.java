@@ -1,5 +1,6 @@
 package me.gamehugo.realfireworks.listeners;
 
+import me.gamehugo.realfireworks.RealFireworks;
 import me.gamehugo.realfireworks.utils.Chat;
 import me.gamehugo.realfireworks.events.FireworkLaunchEvent;
 import me.gamehugo.realfireworks.utils.files.Fireworks;
@@ -19,7 +20,7 @@ public class OnFireworkIgnite implements Listener {
     @EventHandler
     public void OnInteract(PlayerInteractEvent e) {
         if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK) && e.getItem() != null && e.getItem().getType().equals(Material.FIREWORK_ROCKET)) {
-            if(e.getClickedBlock() != null && e.getClickedBlock().getType().isInteractable()) return;
+            if(e.getClickedBlock() != null && e.getClickedBlock().getType().name().contains("DOOR")) return;
             for(Map<String, FireworkInfo> fireworkInfoMap : Fireworks.getFireworksList().values()) {
                 for(FireworkInfo fireworkInfo : fireworkInfoMap.values()) {
                     if (Objects.requireNonNull(e.getItem().getItemMeta()).getDisplayName().equals(Chat.color(fireworkInfo.getName()))) {

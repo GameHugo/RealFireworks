@@ -13,7 +13,7 @@ public class Messages {
     private static File file;
     private static FileConfiguration config;
 
-    public static void setup() {
+    public Messages() {
         file = FileCreator.createFile("messages.yml");
         config = FileCreator.createConfig(file);
         config.setDefaults(FileCreator.getDefault("messages.yml"));
@@ -26,11 +26,18 @@ public class Messages {
         if(Config.getConfig().getBoolean("Debug")) RealFireworks.getInstance().getLogger().info("Loaded messages file");
     }
 
-    public static void reload() {
-        setup();
+    public void reload() {
+        config = FileCreator.createConfig(file);
+        config.setDefaults(FileCreator.getDefault("messages.yml"));
+        config.options().copyDefaults(true);
+        try {
+            config.save(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public static String get(String path) {
+    public String get(String path) {
         if(getFileConfig().getString(path) != null) {
             return color(Objects.requireNonNull(getFileConfig().getString(path)));
         }
@@ -48,10 +55,10 @@ public class Messages {
         return message.replace("&", "§");
     }
 
-    public static File getFile() {
+    public File getFile() {
         return file;
     }
-    public static FileConfiguration getFileConfig() {
+    public FileConfiguration getFileConfig() {
         return config;
     }
 }

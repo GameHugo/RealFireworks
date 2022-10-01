@@ -15,6 +15,8 @@ import java.util.Objects;
 
 public final class RealFireworks extends JavaPlugin {
     private static RealFireworks instance;
+    private static Fireworks fireworks;
+    private static Messages messages;
 
     @Override
     public void onLoad() {
@@ -27,10 +29,7 @@ public final class RealFireworks extends JavaPlugin {
         long timeAtStart = System.currentTimeMillis();
         if(Config.getConfig().getBoolean("Debug")) getLogger().info(" ");
 
-        Messages.setup();
-        Fireworks.setup();
-
-        Fireworks.loadFireworks();
+        fireworks.loadFireworks();
 
         Objects.requireNonNull(getCommand("realfireworks")).setExecutor(new RealFireworksCMD());
 
@@ -53,12 +52,20 @@ public final class RealFireworks extends JavaPlugin {
         if(getDescription().getName().equals("RealFireworks") && getDescription().getAuthors().contains("GameHugo_")) {
             instance = this;
             Config.setup();
+            fireworks = new Fireworks();
+            messages = new Messages();
         } else {
             getLogger().severe("You can't change the name of the plugin or the author!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
 
+    public static Messages getMessages() {
+        return messages;
+    }
+    public static Fireworks getFireworks() {
+        return fireworks;
+    }
     public static RealFireworks getInstance() {
         return instance;
     }

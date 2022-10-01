@@ -28,6 +28,8 @@ public class FireworkBuilder {
             cake(location, fireworkInfo);
         } else if(fireworkInfo.getFireworkType().equals(FireworkType.FOUNTAIN)) {
             fountain(location, fireworkInfo);
+        } else {
+            RealFireworks.getInstance().getLogger().warning("FireworkType of '"+fireworkInfo.getName()+"' is not valid!");
         }
     }
 

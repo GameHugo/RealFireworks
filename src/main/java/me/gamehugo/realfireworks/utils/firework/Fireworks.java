@@ -18,16 +18,15 @@ import java.util.Objects;
 @SuppressWarnings("unused")
 public class Fireworks {
 
-    private static File folder;
-    private static final Map<File, Map<String, FireworkInfo>> fireworksList = new HashMap<>();
-    private static final Map<File, Integer> warnings = new HashMap<>();
-    private static boolean fixWarnings;
-    public static void setup() {
-        folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");
-    }
+    private final File folder = new File(RealFireworks.getInstance().getDataFolder()+"/Fireworks");;
+    private final Map<File, Map<String, FireworkInfo>> fireworksList = new HashMap<>();
+    private final Map<File, Integer> errors = new HashMap<>();
+    private final Map<File, Integer> warnings = new HashMap<>();
+    private boolean fixWarnings;
 
-    public static void loadFireworks() {
+    public void loadFireworks() {
         fireworksList.clear();
+        errors.clear();
         warnings.clear();
         fixWarnings = Config.getConfig().getBoolean("FixWarnings");
         for (File file : Objects.requireNonNull(folder.listFiles())) {
@@ -71,24 +70,24 @@ public class Fireworks {
 
     }
 
-    public static FireworkInfo getFireworkInfo(File file, FileConfiguration fileConfig, String path) {
+    public FireworkInfo getFireworkInfo(File file, FileConfiguration fileConfig, String path) {
         FireworkInfo fireworkInfo = new FireworkInfo();
         if(fileConfig.getString(path+".Name") == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load a firework...\nPATH: "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            errors.put(file, errors.getOrDefault(file, 0)+1);
             return null;
         }
         fireworkInfo.setName(fileConfig.getString(path+".Name"));
         fireworkInfo.setLore(fileConfig.getStringList(path+".Lore"));
         if(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))) == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" invalid FireworkType\nPATH: "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            errors.put(file, errors.getOrDefault(file, 0)+1);
             return null;
         }
         fireworkInfo.setFireworkType(FireworkType.getType(Objects.requireNonNull(fileConfig.getString(path+".FireworkType"))));
         if(fireworkInfo.getFireworkType().equals(FireworkType.CAKE) && fileConfig.get(path+".CakeEffects") == null) {
             RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" no CakeEffects\nPATH: "+path);
-            warnings.put(file, warnings.getOrDefault(file, 0)+1);
+            errors.put(file, errors.getOrDefault(file, 0)+1);
             return null;
         }
         if(fireworkInfo.getFireworkType().equals(FireworkType.CAKE)) {
@@ -101,7 +100,7 @@ public class Fireworks {
         } else {
             if(fileConfig.get(path+".CakeEffects") != null) {
                 RealFireworks.getInstance().getLogger().severe("Failed to load firework "+fileConfig.getString(path+".Name")+" there is a CakeEffect and isn't a cake\nPATH: "+path);
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+                errors.put(file, errors.getOrDefault(file, 0)+1);
                 return null;
             }
             fireworkInfo.setFireworkEffects(convertFireworkEffects(file, fileConfig, path));
@@ -109,7 +108,7 @@ public class Fireworks {
         return fireworkInfo;
     }
 
-    public static FireworkEffects convertFireworkEffects(File file, FileConfiguration fileConfig, String path) {
+    public FireworkEffects convertFireworkEffects(File file, FileConfiguration fileConfig, String path) {
         FireworkEffects fireworkEffects = new FireworkEffects();
         String id;String tubeId = null;
         if(path.contains("CakeEffects")) {
@@ -121,10 +120,10 @@ public class Fireworks {
         if (fileConfig.get(path + ".FireworkEffects") == null) {
             if(tubeId == null) {
                 RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' no FireworkEffects");
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+                errors.put(file, errors.getOrDefault(file, 0)+1);
             } else {
                 RealFireworks.getInstance().getLogger().severe("Failed to load firework '" + id + "' and tubeID '" + tubeId + "' no FireworkEffects");
-                warnings.put(file, warnings.getOrDefault(file, 0)+1);
+                errors.put(file, errors.getOrDefault(file, 0)+1);
             }
             return null;
         }
@@ -300,19 +299,22 @@ public class Fireworks {
     }
 
 
-    public static void reload() {
+    public void reload() {
         loadFireworks();
     }
 
-    public static Map<File, Map<String, FireworkInfo>> getFireworksList() {
+    public Map<File, Map<String, FireworkInfo>> getFireworksList() {
         return fireworksList;
     }
 
-    public static Map<File, Integer> getWarnings() {
+    public Map<File, Integer> getErrors() {
+        return errors;
+    }
+    public Map<File, Integer> getWarnings() {
         return warnings;
     }
 
-    public static File getFolder() {
+    public File getFolder() {
         return folder;
     }
 }

@@ -13,8 +13,10 @@ public class OnFireworkExplode implements Listener {
 
     @EventHandler
     public void onFireworkExplode(FireworkExplodeEvent e) {
-        if(e.getEntity().getCustomName() != null && e.getEntity().getCustomName().equals("RealFireworks") && Firework.getFireworkIds().get(e.getEntity().getEntityId()).getFireworkEffects().hasSmoke()) {
-            FireworkInfo fireworkInfo = Firework.getFireworkIds().get(e.getEntity().getEntityId());
+        if(e.getEntity().getCustomName() == null || !e.getEntity().getCustomName().equals("RealFireworks")) return;
+        if(!Firework.getFireworkIds().containsKey(e.getEntity().getEntityId())) return;
+        FireworkInfo fireworkInfo = Firework.getFireworkIds().get(e.getEntity().getEntityId());
+        if(fireworkInfo != null && fireworkInfo.getFireworkEffects() != null && fireworkInfo.getFireworkEffects().hasSmoke()) {
             int size = fireworkInfo.getFireworkEffects().getSmokeSize();
             Location loc = e.getEntity().getLocation();
             if(fireworkInfo.getFireworkType().equals(FireworkType.Rocket)) {

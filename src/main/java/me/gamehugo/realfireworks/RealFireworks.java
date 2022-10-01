@@ -1,50 +1,46 @@
 package me.gamehugo.realfireworks;
 
-import me.gamehugo.realfireworks.Commands.RealFireworksCMD;
-import me.gamehugo.realfireworks.Listeners.OnFireworkIgnite;
-import me.gamehugo.realfireworks.Listeners.OnFireworkMenuClick;
-import me.gamehugo.realfireworks.Utils.Files.Messages;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.Fountain;
-import me.gamehugo.realfireworks.Utils.Menus.FireworkMenu;
-import me.gamehugo.realfireworks.Utils.Console;
-import me.gamehugo.realfireworks.Utils.Files.Fireworks;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.Cake;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.Ground;
-import me.gamehugo.realfireworks.Utils.FireworkTypes.Rocket;
+import me.gamehugo.realfireworks.commands.RealFireworksCMD;
+import me.gamehugo.realfireworks.listeners.OnFireworkDamage;
+import me.gamehugo.realfireworks.listeners.OnFireworkExplode;
+import me.gamehugo.realfireworks.listeners.OnFireworkIgnite;
+import me.gamehugo.realfireworks.listeners.OnFireworkMenuClick;
+import me.gamehugo.realfireworks.utils.files.Config;
+import me.gamehugo.realfireworks.utils.files.Messages;
+import me.gamehugo.realfireworks.utils.firework.Fireworks;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
 public final class RealFireworks extends JavaPlugin {
-
     private static RealFireworks instance;
+    private static Fireworks fireworks;
+    private static Messages messages;
 
-    public static FireworkMenu fireworkMenu;
-
-    public static Ground ground;
-    public static Rocket rocket;
-    public static Fountain fountain;
-    public static Cake cake;
+    @Override
+    public void onLoad() {
+        loadInstances();
+    }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        loadInstances();
-        Console.sendMessage("\n"+
-                "&6Loading RealFireworks!\n"+
-                "&eVersion: "+getDescription().getVersion()+"\n"+
-                "&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)+"\n"
-        );
-        Messages.setupFile();
-        Fireworks.setupFile();
+        long timeAtStart = System.currentTimeMillis();
+        if(Config.getConfig().getBoolean("Debug")) getLogger().info(" ");
 
-        Fireworks.loadFireworks();
+        fireworks.loadFireworks();
 
         Objects.requireNonNull(getCommand("realfireworks")).setExecutor(new RealFireworksCMD());
 
         getServer().getPluginManager().registerEvents(new OnFireworkMenuClick(), this);
         getServer().getPluginManager().registerEvents(new OnFireworkIgnite(), this);
+        getServer().getPluginManager().registerEvents(new OnFireworkDamage(), this);
+        getServer().getPluginManager().registerEvents(new OnFireworkExplode(), this);
+        long timeTakenInMS = System.currentTimeMillis()-timeAtStart;
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&6Done! Loaded in "+timeTakenInMS+"ms"));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&eVersion: "+getDescription().getVersion()));
+        Bukkit.getConsoleSender().sendMessage("["+getDescription().getName()+"] "+Messages.color("&eMade with &c❤  &eby "+getDescription().getAuthors().toString().substring(1, getDescription().getAuthors().toString().length()-1)));
     }
 
     @Override
@@ -53,19 +49,23 @@ public final class RealFireworks extends JavaPlugin {
     }
 
     private void loadInstances() {
-        if(getDescription().getName().equals("RealFireworks")) {
+        if(getDescription().getName().equals("RealFireworks") && getDescription().getAuthors().contains("GameHugo_")) {
             instance = this;
-            fireworkMenu = new FireworkMenu();
-
-            ground = new Ground();
-            rocket = new Rocket();
-            fountain = new Fountain();
-            cake = new Cake();
+            Config.setup();
+            fireworks = new Fireworks();
+            messages = new Messages();
         } else {
+            getLogger().severe("You can't change the name of the plugin or the author!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
 
+    public static Messages getMessages() {
+        return messages;
+    }
+    public static Fireworks getFireworks() {
+        return fireworks;
+    }
     public static RealFireworks getInstance() {
         return instance;
     }

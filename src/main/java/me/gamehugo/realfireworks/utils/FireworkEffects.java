@@ -1,7 +1,14 @@
-package me.gamehugo.realfireworks.Utils;
+package me.gamehugo.realfireworks.utils;
 
+import org.bukkit.FireworkEffect;
+
+@SuppressWarnings("unused")
 public class FireworkEffects {
     private int power;
+    private boolean smoke;
+    private int SmokeIntensity;
+    private int SmokeSize;
+    private FireworkEffect.Type type;
     private int red;
     private int green;
     private int blue;
@@ -14,6 +21,18 @@ public class FireworkEffects {
 
     public void setPower(int power) {
         this.power = power;
+    }
+    public void setSmoke(boolean smoke) {
+        this.smoke = smoke;
+    }
+    public void setSmokeIntensity(int smokeIntensity) {
+        SmokeIntensity = smokeIntensity;
+    }
+    public void setSmokeSize(int smokeSize) {
+        SmokeSize = smokeSize;
+    }
+    public void setType(FireworkEffect.Type type) {
+        this.type = type;
     }
     public void setColor(int red, int green, int blue) {
         this.red = red;
@@ -55,6 +74,18 @@ public class FireworkEffects {
 
     public int getPower() {
         return power;
+    }
+    public boolean hasSmoke() {
+        return smoke;
+    }
+    public int getSmokeIntensity() {
+        return SmokeIntensity;
+    }
+    public int getSmokeSize() {
+        return SmokeSize;
+    }
+    public FireworkEffect.Type getType() {
+        return type;
     }
     public int getRed() {
         return red;

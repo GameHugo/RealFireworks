@@ -1,10 +1,11 @@
-package me.gamehugo.realfireworks.Utils.FireworkTypes;
+package me.gamehugo.realfireworks.utils.firework;
 
+@SuppressWarnings("unused")
 public enum FireworkType {
-    Ground("ground"),
-    Rocket("rocket"),
-    Fountain("fountain"),
-    Cake("cake");
+    GROUND("ground"),
+    ROCKET("rocket"),
+    FOUNTAIN("fountain"),
+    CAKE("cake");
 
     private final String type;
 

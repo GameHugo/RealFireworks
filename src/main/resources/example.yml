@@ -1,46 +1,3 @@
-# ✨🎇RealFireworks🎆✨
-A minecraft plugin that makes fireworks just a bit better.
-
-## Usage✅
-```
-/realfireworks         | Open fireworks menu | Permission: realfireworks.use
-/realfireworks reload  | reload all configs  | Permission: realfireworks.reload
-```
-
-## Config⚙️
-### Config.yml
-```yaml
-Debug: false          # Debug messages
-FireworkDamage: false # Enable or disable firework damage from this plugin
-FixWarnings: false    # Automatically tries to fix warnings
-```
-### Firework Types
-```
-Rocket
-Ground
-Cake
-Fountain > not implemented
-```
-### Firework Effect Types
-```
-BALL
-BALL_LARGE
-STAR
-BURST
-CREEPER
-```
-### Extra Firework Effects
-```
-Flicker | Adds a flicker/crackling effect to the firework
-Trail   | Adds a trail effect to the firework
-Fade    | Adds a fade effect to the firework (Use FadeRed FadeGreen FadeBlue)
-Smoke   | Adds a smoke effect to the firework (Use SmokeIntensity and SmokeSize)
-```
-### Examples
-<details>
-  <summary>Ground</summary>
-
-  ```YAML
 example-ground:
   Name: '&cExample Firework'
   Lore:
@@ -56,13 +13,6 @@ example-ground:
     Flicker: true
     Trail: false
     Fade: false
-  ```
-</details>
-
-<details>
-  <summary>Rocket</summary>
-
-  ```YAML
 example-rocket:
   Name: '&cExample Rocket'
   Lore:
@@ -80,13 +30,6 @@ example-rocket:
     Flicker: true
     Trail: false
     Fade: false
-  ```
-</details>
-
-<details>
-  <summary>Cake</summary>
-
-  ```YAML
 example-cake:
   Name: '&cExample Cake'
   Lore:
@@ -123,9 +66,3 @@ example-cake:
         FadeRed: 255
         FadeGreen: 255
         FadeBlue: 255
-  ```
-</details>
-
-
-## Pro tip🤔💭
-Just play around with the config, and you will get it.
